@@ -39,11 +39,20 @@ namespace Uniterm
                 ";",
                 DirectionEnum.Horizontal
             );
-            HorizontalOperation.Add(
+            this.AddHorizontalOperation(
                 OperationFactory.CreateOperation(
                     OperationType.Sequencing,
                     "a+b",
-                    op,
+                    "op",
+                    ";",
+                    DirectionEnum.Vertical
+                )
+            );
+            this.AddVerticalOperation(
+                OperationFactory.CreateOperation(
+                    OperationType.Parallel,
+                    "a+b",
+                    "op",
                     ";",
                     DirectionEnum.Horizontal
                 )
@@ -57,47 +66,37 @@ namespace Uniterm
 
         #region Public Methods
 
-
-
-        //if (oper != ' ')
-        //{
-        //    DrawSwitched(new Point(20, fontsize + 30));
-        //}
-        //else
-        //{
-        //    if (sA != "")
-        //    {
-        //        DrawSek(new Point(30, fontsize + 30));
-        //    }
-        //    if (eA != "")
-        //    {
-        //        DrawElim(new Point(30, fontsize * 3 + 30));
-        //    }
-        //}
         public void Draw(DrawingContext dc, IDrawingCanvas canvas)
         {
-            Rect size = Rect.Empty;
+            double width = 0;
+            Size size = new Size(0, 0);
             foreach (var abstractOperation in HorizontalOperation)
             {
-                //size= abstractOperation.GetHorizontalSizeOnCavnas();
-                abstractOperation.DrawAtPostion(canvas, dc, new Point(0, 0));
+                abstractOperation.DrawAtPostion(canvas, dc, new Point(0, size.Height));
+                Size currSize = abstractOperation.GetSizeOnCavnas(canvas);
+                if (currSize.Width > width)
+                {
+                    width = currSize.Width;
+                }
+                size = new Size(size.Width + currSize.Width, size.Height + currSize.Height);
             }
-
-            size = Rect.Empty;
-            foreach (var abstractOperation in HorizontalOperation)
+            size = new Size(width, 0);
+            foreach (var abstractOperation in VerticalOperation)
             {
-                abstractOperation.DrawAtPostion(canvas, dc, new Point(0, 0));
+                abstractOperation.DrawAtPostion(canvas, dc, new Point(size.Width, 0));
+                Size currSize = abstractOperation.GetSizeOnCavnas(canvas);
+                size = new Size(size.Width + currSize.Width, size.Height + currSize.Height);
             }
         }
 
         public void AddVerticalOperation(AbstractOperation op)
         {
-            throw new NotImplementedException();
+            this.VerticalOperation.Add(op);
         }
 
         public void AddHorizontalOperation(AbstractOperation op)
         {
-            throw new NotImplementedException();
+            this.HorizontalOperation.Add(op);
         }
 
         public void Refresh()

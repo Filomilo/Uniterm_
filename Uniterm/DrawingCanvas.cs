@@ -16,24 +16,21 @@ using FlowDirection = System.Windows.FlowDirection;
 
 namespace Uniterm
 {
-    public class DrawingCanvas: Canvas, IDrawingCanvas
+    public class DrawingCanvas : Canvas, IDrawingCanvas
     {
-         
         private List<IDrawable> drawables = new List<IDrawable>();
 
         #region Fields
 
-        public  FontFamily fontFamily = new FontFamily("Arial");
-       
-        public /*double*/ Int32 fontsize = 12;
+        public FontFamily fontFamily = new FontFamily("Arial");
+
+        public /*double*/
+        Int32 fontsize = 12;
         private static Brush br = Brushes.White;
 
-        public  Pen pen
+        public Pen pen
         {
-            get
-            {
-                return new Pen(Brushes.SteelBlue, (int)Math.Log(this.fontsize, 3));
-            }
+            get { return new Pen(Brushes.SteelBlue, (int)Math.Log(this.fontsize, 3)); }
         }
 
         #endregion
@@ -54,19 +51,26 @@ namespace Uniterm
             FontStyle style = FontStyles.Normal;
 
             style = FontStyles.Normal;
-            Typeface typeface = new Typeface(fontFamily, style, FontWeights.Light, FontStretches.Medium);
+            Typeface typeface = new Typeface(
+                fontFamily,
+                style,
+                FontWeights.Light,
+                FontStretches.Medium
+            );
 
-            FormattedText formattedText = new FormattedText(text,
+            FormattedText formattedText = new FormattedText(
+                text,
                 System.Globalization.CultureInfo.CurrentCulture,
                 FlowDirection.LeftToRight,
-                typeface, fontsize, Brushes.Black);
+                typeface,
+                fontsize,
+                Brushes.Black
+            );
 
             formattedText.TextAlignment = TextAlignment.Left;
 
             return formattedText;
         }
-
-
 
         #region public
 
@@ -77,11 +81,12 @@ namespace Uniterm
             double b = (Math.Sqrt(length) / 2) + 2;
 
             dc.DrawLine(pen, new Point(pt.X - (b / 2), pt.Y), new Point(pt.X + (b / 2), pt.Y));
-            dc.DrawLine(pen, new Point(pt.X - (b / 2), pt.Y + length), new Point(pt.X + (b / 2), pt.Y + length));
-
+            dc.DrawLine(
+                pen,
+                new Point(pt.X - (b / 2), pt.Y + length),
+                new Point(pt.X + (b / 2), pt.Y + length)
+            );
         }
-
-      
 
         public int GetTextHeight(string text)
         {
@@ -93,12 +98,20 @@ namespace Uniterm
             dc.DrawText(GetFormattedText(text), point);
         }
 
+        public void Refresh()
+        {
+            this.InvalidateVisual();
+        }
+
+        public void DrawRectBrackets(Point startPos, Point endPos, DrawingContext dc)
+        {
+            RectangularBrackets.DrawBrackets(startPos, endPos, dc, pen);
+        }
+
         public int GetTextLength(string text)
         {
             return (int)GetFormattedText(text).Width;
         }
-
-
 
         #endregion
 
@@ -116,46 +129,43 @@ namespace Uniterm
                 double tas = Math.Pow((1 - t), 2);
                 double tac = Math.Pow((1 - t), 3);
 
-                points.Add(new Point
-                {
-                    Y = +tac * A.Y
-                        + 3 * t * tas * B.Y
-                        + 3 * tbs * (1 - t) * C.Y
-                        + tbc * D.Y,
-                    X = +tac * A.X
-                        + 3 * t * tas * B.X
-                        + 3 * tbs * (1 - t) * C.X
-                        + tbc * D.X
-                });
+                points.Add(
+                    new Point
+                    {
+                        Y = +tac * A.Y + 3 * t * tas * B.Y + 3 * tbs * (1 - t) * C.Y + tbc * D.Y,
+                        X = +tac * A.X + 3 * t * tas * B.X + 3 * tbs * (1 - t) * C.X + tbc * D.X,
+                    }
+                );
             }
 
             return points;
         }
-
 
         #endregion
 
         public void SetFontFamily(FontFamily fontFamily)
         {
             this.fontFamily = fontFamily;
+            Refresh();
         }
 
         public void SetFontSize(int fontSize)
         {
             this.fontsize = fontSize;
+            Refresh();
         }
-
-     
 
         public void AddDrawable(IDrawable drawable)
         {
-           this.drawables.Add(drawable);
+            this.drawables.Add(drawable);
+            Refresh();
         }
 
         public void ClearAll()
         {
             throw new NotImplementedException();
         }
+
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
@@ -172,7 +182,7 @@ namespace Uniterm
 
         public void DrawBezier(Point curveStartPostion, Point curveEndPostion, DrawingContext dc)
         {
-            Beizer.DrawBezier(curveStartPostion, curveEndPostion, dc,pen);
+            Beizer.DrawBezier(curveStartPostion, curveEndPostion, dc, pen);
         }
     }
 }

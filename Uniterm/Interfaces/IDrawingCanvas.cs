@@ -19,5 +19,8 @@ namespace Uniterm.Interfaces
         FormattedText GetFormattedText(string separator);
         int GetFontSize();
         void DrawBezier(Point curveStartPostion, Point curveEndPostion, DrawingContext dc);
+        void DrawText(Point point, string text, DrawingContext dc);
+        void Refresh();
+        void DrawRectBrackets(Point startPos, Point endPos, DrawingContext dc);
     }
 }

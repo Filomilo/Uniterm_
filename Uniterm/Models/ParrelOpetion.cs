@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Uniterm.Interfaces;
+using Uniterm.Shapes;
 
 namespace Uniterm.Models
 {
@@ -19,58 +20,19 @@ namespace Uniterm.Models
         )
             : base(expressionA, expressionB, seprator, direction) { }
 
-        public override Size GetHorizontalSizeOnCavnas(IDrawingCanvas drawingCanvas)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Size GetVerticalSizeOnCavnas(IDrawingCanvas drawingCanvas)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void DrawVerticalyAtPostion(
+        protected override void DrawOpeartor(
             IDrawingCanvas drawingCanvas,
             DrawingContext dc,
-            Point position
+            Point startPos,
+            Point endPos
         )
         {
-            throw new NotImplementedException();
+            drawingCanvas.DrawRectBrackets(startPos, endPos, dc);
         }
 
-        public override void DrawHorizontalyAtPostion(
-            IDrawingCanvas drawingCanvas,
-            DrawingContext dc,
-            Point position
-        )
+        protected override Size GetOperatorSize(Point operatorStart, Point operataorEnd)
         {
-            throw new NotImplementedException();
-        }
-
-        protected override void GetHorizontalSizeParamaterse(
-            IDrawingCanvas drawingCanvas,
-            out Size FirstEpressionSize,
-            out Size SecondEpressionSize,
-            out Size SeperatorSize,
-            out int GapSize,
-            out Size OperatorSize,
-            out Size TotalSize
-        )
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void GetVerticalSizeParamaterse(
-            IDrawingCanvas drawingCanvas,
-            out Size FirstEpressionSize,
-            out Size SecondEpressionSize,
-            out Size SeperatorSize,
-            out int GapSize,
-            out Size OperatorSize,
-            out Size TotalSize
-        )
-        {
-            throw new NotImplementedException();
+            return RectangularBrackets.GetSize(operatorStart, operataorEnd);
         }
     }
 }
