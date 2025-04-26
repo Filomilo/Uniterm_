@@ -4,12 +4,17 @@
         xmlns:local="clr-namespace:Uniterm"
     xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Uniterm.Window1"
     Title="Uniterm" Height="760" Width="1165" WindowStyle="SingleBorderWindow" 
-        Visibility="Visible" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFB34C4C">
+        Visibility="Visible" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="White" Foreground="{x:Null}"
+ >
 
     <Grid x:Name="stackPanel"
         HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Background="#FF2ACA3B"
+        VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5"
         >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165*"/>
+            <ColumnDefinition Width="68*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"/>
             <RowDefinition Height="*"/>
@@ -17,24 +22,26 @@
         </Grid.RowDefinitions>
 
 
-        <Menu x:Name="menu1" Background="#FFF3BE2C" Grid.Column="0
-" Height="20">
+        <Menu x:Name="menu1" Background="{x:Null}" Grid.Column="0
+" Height="20" Grid.ColumnSpan="2">
             <MenuItem Header="Plik." Margin="15, 0, 0, 0">
                 <MenuItem Header="Nowy" Click="ehNowyClick"/>
                 <MenuItem Header="Wymiana" Click="MenuItem_Click"/>
                 <MenuItem Header="Zapisz" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        <Grid RenderTransformOrigin="0.5,0.5" Background="#FF131CA4"  UseLayoutRounding="True" Grid.Row="1" 
+        <Grid RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="True" Grid.Row="1" Grid.ColumnSpan="2" 
         >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="27*"/>
+                <ColumnDefinition Width="129*"/>
+                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ListBox x:Name="lbUniterms" BorderThickness="3" SelectionChanged="ehlbUNitermsSelectionChanged" Width="200" />
             <Border
-                BorderThickness="1" BorderBrush="#FF359598" Background="#FFB940DE" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+                BorderThickness="1" BorderBrush="#FF359598" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Grid.ColumnSpan="3">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -50,11 +57,11 @@
 
                     <ScrollBar
 
-                        Width="640" ValueChanged="HorScroll_ValueChanged" SmallChange="1" Orientation="Horizontal" x:Name="HorScroll" Maximum="{Binding ActualWidth, ElementName=cDrawing}" HorizontalAlignment="Left" DockPanel.Dock="Bottom"/>
+                        ValueChanged="HorScroll_ValueChanged" SmallChange="1" Orientation="Horizontal" x:Name="HorScroll" Maximum="{Binding Width, ElementName=cDrawing}"  DockPanel.Dock="Bottom" ViewportSize="{Binding ActualWidth, ElementName=cDrawing, Mode=OneWay}"/>
 
                     <ScrollBar
 
-                        ValueChanged="HorScroll_ValueChanged" x:Name="VerScroll" Minimum="0" Maximum="{Binding ActualHeight, ElementName=cDrawing}" DockPanel.Dock="Right"/>
+                        ValueChanged="HorScroll_ValueChanged" x:Name="VerScroll" Minimum="0" Maximum="{Binding Height, ElementName=cDrawing}" DockPanel.Dock="Right" ViewportSize="{Binding ActualHeight, ElementName=cDrawing, Mode=OneWay}" />
 
                     <Border
 
@@ -69,7 +76,7 @@
                 </DockPanel>
 
             </Border>
-            <StackPanel VerticalAlignment="Top" Height="501" Grid.Column="2" Width="150" HorizontalAlignment="Center">
+            <StackPanel Grid.Column="4" Width="150" HorizontalAlignment="Center" Margin="0,0,0,401">
 
                 <Button
 
@@ -118,7 +125,7 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" Background="#FFE85B5B" Grid.Row="2">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,700,0,0" Grid.RowSpan="2">
             <Label
 
     Width="47" x:Name="label3" Height="24" Content="Tytuł"/>
