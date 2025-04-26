@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Uniterm.Interfaces;
 
 namespace Uniterm.Models
 {
+    public enum DirectionEnum
+    {
+        Horizontal, Vertical
+    }
+
     public abstract class AbstractOperation
     {
         private object _ExpressionA;
         private object _ExpressionB;
+        private DirectionEnum _Direction;
 
-
-        object ExpressionA
+        public object ExpressionA
         {
             get
             {
@@ -27,7 +34,7 @@ namespace Uniterm.Models
             }
         }
 
-        object ExpressionB
+        public object ExpressionB
         {
             get
             {
@@ -39,9 +46,17 @@ namespace Uniterm.Models
                 _ExpressionB = value;
             }
         }
-        string Separator { get; }
+        public string Separator { get; }
 
-        public AbstractOperation(object expressionA, object expressionB, string seprator)
+        DirectionEnum Direction
+        {
+            get
+            {
+                return _Direction;
+            }
+        }
+
+        public AbstractOperation(object expressionA, object expressionB, string seprator, DirectionEnum direction)
         {
             ValidateOperation(expressionA);
             ValidateOperation(expressionB);
@@ -49,6 +64,7 @@ namespace Uniterm.Models
             _ExpressionA = expressionA;
             _ExpressionB = expressionB;
             Separator = seprator;
+            _Direction = direction;
         }
 
 
@@ -75,14 +91,87 @@ namespace Uniterm.Models
             }
         }
 
-        public virtual Rect DrawHorizontaly(DrawingCanvas dc, Point bottomLeft)
+        public abstract Size GetHorizontalSizeOnCavnas(IDrawingCanvas drawingCanvas);
+        public abstract Size GetVerticalSizeOnCavnas(IDrawingCanvas drawingCanvas);
+        public abstract void DrawVerticalyAtPostion(IDrawingCanvas drawingCanvas, DrawingContext dc, Point position);
+        public abstract void DrawHorizontalyAtPostion(IDrawingCanvas drawingCanvas, DrawingContext dc, Point position);
+
+        public Size GetSizeOnCavnas(IDrawingCanvas drawingCanvas)
         {
-            throw new NotImplementedException();
+            switch (Direction)
+            {
+                case DirectionEnum.Horizontal:
+                    return GetHorizontalSizeOnCavnas(drawingCanvas);
+                    break;
+                case DirectionEnum.Vertical:
+                    return GetVerticalSizeOnCavnas(drawingCanvas);
+                    break;
+            }
+            throw new NotImplementedException("Direction not implemented");
         }
 
-        public virtual Rect DrawVerticaly(DrawingCanvas dc, Point topRight)
+        public void DrawAtPostion(IDrawingCanvas drawingCanvas, DrawingContext dc, Point position)
         {
-            throw new NotImplementedException();
+            switch (Direction)
+            {
+                case DirectionEnum.Horizontal:
+                    DrawHorizontalyAtPostion(drawingCanvas, dc, position);
+                    break;
+                case DirectionEnum.Vertical:
+                    DrawVerticalyAtPostion(drawingCanvas, dc, position);
+                    break;
+            }
         }
+
+
+        protected static Size GetExpressionSize(object expression, IDrawingCanvas drawingCanvas)
+        {
+            if (expression is string)
+               return drawingCanvas.GetSizeOfText((string)expression);
+            if (expression is AbstractOperation)
+                return ((AbstractOperation)expression).GetSizeOnCavnas(drawingCanvas);
+            throw new ArgumentException();
+        }
+
+
+
+        protected void DrawExpression(object expressionA, IDrawingCanvas drawingCanvas, DrawingContext dc, Point position)
+        {
+           if(expressionA is string)
+           {
+               dc.DrawText(drawingCanvas.GetFormattedText(expressionA as string), position);
+            }
+            else if (expressionA is AbstractOperation)
+            {
+                ((AbstractOperation)expressionA).DrawAtPostion(drawingCanvas, dc, position);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        abstract protected void GetHorizontalSizeParamaterse(IDrawingCanvas drawingCanvas
+            , out Size FirstEpressionSize
+            , out Size SecondEpressionSize
+            , out Size SeperatorSize
+            , out int GapSize
+            , out Size OperatorSize
+            , out Size TotalSize
+
+        );
+        abstract protected void GetVerticalSizeParamaterse(IDrawingCanvas drawingCanvas
+            , out Size FirstEpressionSize
+            , out Size SecondEpressionSize
+            , out Size SeperatorSize
+            , out int GapSize
+            , out Size OperatorSize
+            , out Size TotalSize
+
+        );
+
+
+
+
     }
 }

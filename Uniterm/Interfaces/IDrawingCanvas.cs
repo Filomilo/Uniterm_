@@ -3,10 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Uniterm.Interfaces
 {
-    internal class IDrawingCanvas
+    public interface IDrawingCanvas
     {
+        void SetFontFamily(FontFamily fontFamily);
+        void SetFontSize(int fontSize);
+
+        void AddDrawable(IDrawable drawable);
+        void ClearAll();
+        Size GetSizeOfText(string expression);
+        FormattedText GetFormattedText(string separator);
+        int GetFontSize();
+        void DrawBezier(Point curveStartPostion, Point curveEndPostion, DrawingContext dc);
     }
 }

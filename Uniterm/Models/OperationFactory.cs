@@ -12,14 +12,14 @@ namespace Uniterm.Models
     }
     public class OperationFactory
     {
-        public static AbstractOperation CreateOperation(OperationType type, object expressionA, object expressionB, string separator)
+        public static AbstractOperation CreateOperation(OperationType type, object expressionA, object expressionB, string separator, DirectionEnum direction)
         {
             switch (type)
             {
                 case OperationType.Parallel:
-                    return new ParrarelOpartion(expressionA, expressionB, separator);
+                    return new ParrarelOpartion(expressionA, expressionB, separator, direction);
                 case OperationType.Sequencing:
-                    throw new NotImplementedException("Sequencing operation is not implemented yet.");
+                    return new SequancingOpration(expressionA, expressionB, separator, direction);
                 default:
                     throw new ArgumentException("Invalid operation type");
             }

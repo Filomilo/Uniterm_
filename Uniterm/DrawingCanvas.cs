@@ -1,40 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
+using Uniterm.Interfaces;
+using Uniterm.Shapes;
+using FlowDirection = System.Windows.FlowDirection;
 
 namespace Uniterm
 {
-    public class DrawingCanvas
+    public class DrawingCanvas: Canvas, IDrawingCanvas
     {
+         
+        private List<IDrawable> drawables = new List<IDrawable>();
 
         #region Fields
 
-        public static FontFamily fontFamily = new FontFamily("Arial");
-        private DrawingContext dc;
-        public static /*double*/ Int32 fontsize = 12;
+        public  FontFamily fontFamily = new FontFamily("Arial");
+       
+        public /*double*/ Int32 fontsize = 12;
         private static Brush br = Brushes.White;
 
-        public static Pen pen
+        public  Pen pen
         {
             get
             {
-                return new Pen(Brushes.SteelBlue, (int)Math.Log(DrawingCanvas.fontsize, 3));
+                return new Pen(Brushes.SteelBlue, (int)Math.Log(this.fontsize, 3));
             }
         }
 
         #endregion
 
 
-
-        public DrawingCanvas(DrawingContext drawingContext)
+        public Size GetSizeOfText(string expression)
         {
-            dc = drawingContext;
+            return new Size(GetTextLength(expression), GetTextHeight(expression));
         }
 
+        FormattedText IDrawingCanvas.GetFormattedText(string separator)
+        {
+            return GetFormattedText(separator);
+        }
 
         private FormattedText GetFormattedText(string text)
         {
@@ -58,7 +71,7 @@ namespace Uniterm
         #region public
 
 
-        public void DrawVert(Point pt, int length)
+        public void DrawVert(Point pt, int length, DrawingContext dc)
         {
             dc.DrawLine(pen, pt, new Point { X = pt.X, Y = pt.Y + length });
             double b = (Math.Sqrt(length) / 2) + 2;
@@ -68,35 +81,14 @@ namespace Uniterm
 
         }
 
-        public void DrawBezier(Point p0, int length)
-        {
-            Point start = p0;
-            Point p1 = new Point(), p2 = new Point(), p3 = new Point();
-
-            p3.Y = p0.Y;
-            p3.X = p0.X + length;
-
-            int b = (int)Math.Sqrt(length) + 2;
-
-            p1.X = p0.X + (int)(length * 0.25);
-            p1.Y = p0.Y - b;
-
-            p2.X = p0.X + (int)(length * 0.75);
-            p2.Y = p0.Y - b;
-
-            foreach (Point pt in GetBezierPoints(p0, p1, p2, p3))
-            {
-                dc.DrawLine(pen, start, pt);
-                start = pt;
-            }
-        }
+      
 
         public int GetTextHeight(string text)
         {
             return (int)GetFormattedText(text).Height;
         }
 
-        public void DrawText(Point point, string text)
+        public void DrawText(Point point, string text, DrawingContext dc)
         {
             dc.DrawText(GetFormattedText(text), point);
         }
@@ -142,5 +134,45 @@ namespace Uniterm
 
 
         #endregion
+
+        public void SetFontFamily(FontFamily fontFamily)
+        {
+            this.fontFamily = fontFamily;
+        }
+
+        public void SetFontSize(int fontSize)
+        {
+            this.fontsize = fontSize;
+        }
+
+     
+
+        public void AddDrawable(IDrawable drawable)
+        {
+           this.drawables.Add(drawable);
+        }
+
+        public void ClearAll()
+        {
+            throw new NotImplementedException();
+        }
+        protected override void OnRender(DrawingContext dc)
+        {
+            base.OnRender(dc);
+            foreach (var drawable in this.drawables)
+            {
+                drawable.Draw(dc, this);
+            }
+        }
+
+        public int GetFontSize()
+        {
+            return fontsize;
+        }
+
+        public void DrawBezier(Point curveStartPostion, Point curveEndPostion, DrawingContext dc)
+        {
+            Beizer.DrawBezier(curveStartPostion, curveEndPostion, dc,pen);
+        }
     }
 }

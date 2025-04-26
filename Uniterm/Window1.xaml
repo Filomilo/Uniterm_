@@ -67,9 +67,9 @@
 
                         ClipToBounds="True">
 
-                        <local:MyCanvas
+                        <local:DrawingCanvas
 
-                            Grid.RowSpan="2" x:Name="cDrawing" MouseLeftButtonDown="ehMouseDown" ClipToBounds="True" Background="White" Margin="0,-154,0,154"/>
+                            x:Name="cDrawing" ClipToBounds="True" Background="White" Margin="0,0,0,-1.2"/>
 
                     </Border>
 
@@ -123,18 +123,17 @@
                     Width="75" x:Name="btnAdd" Margin="10,10,10,0" Height="45" Content="Wyczyść" Click="btnAdd_Click"/>
 
             </StackPanel>
-        </Grid>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,700,0,0" Grid.RowSpan="2">
-            <Label
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="5" Margin="0,720,0,-20">
+                <Label
 
     Width="47" x:Name="label3" Height="24" Content="Tytuł"/>
-            <TextBox x:Name="tbName" Width="120" Height="19" />
-            <Label
+                <TextBox x:Name="tbName" Width="120" Height="19" />
+                <Label
 
     Width="38" x:Name="label4" Height="24" Content="Opis"/>
-            <TextBox x:Name="tbDescription" KeyUp="tbDescKeyUP" Height="19" Width="575"/>
-        </StackPanel>
+                <TextBox x:Name="tbDescription" KeyUp="tbDescKeyUP" Height="19" Width="575"/>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 

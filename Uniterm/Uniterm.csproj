@@ -123,11 +123,14 @@
     </Compile>
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="Exceptions\InvalidStringLengthException.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IDrawingCanvas.cs" />
     <Compile Include="Interfaces\IUnitermCanvas.cs" />
     <Compile Include="Models\IOperation.cs" />
     <Compile Include="Models\OperationFactory.cs" />
     <Compile Include="Models\ParrelOpetion.cs" />
+    <Compile Include="Models\SequancingOpration.cs" />
+    <Compile Include="Shapes\Beizer.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -37,7 +37,16 @@ namespace Uniterm
             AddElem addElem = new AddElem(dodajOperacjeZrónoleglania);
             addElem.ShowDialog();
 
-            AbstractOperation operation = OperationFactory.CreateOperation(OperationType.Parallel, addElem.tbA.Text , addElem.tbB.Text, addElem.tbC.Text);
+            AbstractOperation operation = OperationFactory.CreateOperation(OperationType.Parallel, addElem.tbA.Text , addElem.tbB.Text, addElem.tbC.Text, DirectionEnum.Horizontal);
+            return operation;
+        }
+
+        public static AbstractOperation GetSequencingOperation(string dodajOperacjeSekwencjonowania)
+        {
+            AddElem addElem = new AddElem(dodajOperacjeSekwencjonowania);
+            addElem.ShowDialog();
+
+            AbstractOperation operation = OperationFactory.CreateOperation(OperationType.Sequencing, addElem.tbA.Text, addElem.tbB.Text, addElem.tbC.Text, DirectionEnum.Horizontal);
             return operation;
         }
     }

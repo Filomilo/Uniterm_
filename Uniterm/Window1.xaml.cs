@@ -16,6 +16,8 @@ using System.Windows.Markup;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using System.Runtime.CompilerServices;
+using Uniterm.Interfaces;
 using Uniterm.Models;
 
 namespace Uniterm
@@ -25,22 +27,25 @@ namespace Uniterm
     /// </summary>
     public partial class Window1 : Window
     {
+        private IUnitermCanvas _unitermCanvas;
+        private IDrawingCanvas _drawingCanvas;
         public Window1()
         {
             InitializeComponent();
+            _drawingCanvas = cDrawing;
+            UnitermCanvas uniterm= new UnitermCanvas();
+            _unitermCanvas = uniterm;
+            _drawingCanvas.AddDrawable(uniterm);
         }
 
         DataBase db;
         bool nowy = false, modified = false;
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            cDrawing.ClearAll();
+            _drawingCanvas.ClearAll();
         }
 
-        private void ehMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+     
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -76,33 +81,37 @@ namespace Uniterm
 
         private void ehCBFontsChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                UnitermCanvas.fontFamily = new FontFamily(e.AddedItems[0].ToString());
-                modified = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            _drawingCanvas.SetFontFamily(new FontFamily(e.AddedItems[0].ToString()));
+            //try
+            //{
+            //    UnitermCanvas.fontFamily =;
+            //    modified = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
 
         }
 
         private void ehcbfSizeChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                DrawingCanvas.fontsize = (int)e.AddedItems[0];
-                modified = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            _drawingCanvas.SetFontSize((int)e.AddedItems[0]);
+            //try
+            //{
+            //    DrawingCanvas.fontsize = (int)e.AddedItems[0];
+            //    modified = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            AbstractOperation op = AddElem.GetSequencingOperation("Dodaj operacje sekwencjonowania");
+            this._unitermCanvas.AddVerticalOperation(op);
             //AddUniterm au = new AddUniterm();
 
             //au.ShowDialog();
@@ -127,15 +136,15 @@ namespace Uniterm
         private void btnAddEl_Click(object sender, RoutedEventArgs e)
         {
             AbstractOperation op = AddElem.GetParrarelOpration ("Dodaj operacje zrónoleglania");
-
-            Console.WriteLine(op);
+            this._unitermCanvas.AddVerticalOperation(op);
+            //Console.WriteLine(op);
             //ae.ShowDialog();
             //if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
             //{
             //    MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
-            UnitermCanvas.eA = ae.tbA.Text;
+            //UnitermCanvas.eA = ae.tbA.Text;
             //UnitermCanvas.eB = ae.tbB.Text;
             //UnitermCanvas.eC = ae.tbC.Text;
 
@@ -145,17 +154,18 @@ namespace Uniterm
 
         private void btnRedraw_Click(object sender, RoutedEventArgs e)
         {
-            cDrawing.ClearAll();
+            this._unitermCanvas.Refresh();
+            //cDrawing.ClearAll();
 
-            DrawingVisual dv = new DrawingVisual();
-            using (DrawingContext dc = dv.RenderOpen())
-            {
-                UnitermCanvas md = new UnitermCanvas(dc);
+            //DrawingVisual dv = new DrawingVisual();
+            //using (DrawingContext dc = dv.RenderOpen())
+            //{
+            //    UnitermCanvas md = new UnitermCanvas(dc);
 
-                md.Redraw();
-                dc.Close();
-            }
-            cDrawing.AddElement(dv);
+            //    md.Redraw();
+            //    dc.Close();
+            //}
+            //cDrawing.AddElement(dv);
 
         }
 
