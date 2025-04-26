@@ -1,11 +1,27 @@
-﻿<Window
+﻿<Window 
+
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+
         xmlns:local="clr-namespace:Uniterm"
-    xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Uniterm.Window1"
-    Title="Uniterm" Height="755" Width="1230" WindowStyle="SingleBorderWindow" 
-        Visibility="Visible" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="White" Foreground="{x:Null}"
- >
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="av" x:Class="Uniterm.Window1"
+    Title="Uniterm" 
+    Height="755"
+    Width="1230"
+    WindowStyle="SingleBorderWindow" 
+        Visibility="Visible" 
+    WindowStartupLocation="CenterScreen" 
+    Loaded="Window_Loaded" 
+    xmlns:primitives="http://schemas.modernwpf.com/2019"
+    primitives:WindowHelper.UseModernWindowStyle="True"
+  
+    >
+
 
     <Grid x:Name="stackPanel"
         HorizontalAlignment="Stretch"
@@ -69,7 +85,11 @@
 
                         <local:DrawingCanvas
 
-                            x:Name="cDrawing" ClipToBounds="True" Background="White" Margin="0,0,0,-1.2"/>
+                            x:Name="cDrawing" ClipToBounds="True" Margin="0,0,0,-1.2">
+                            <local:DrawingCanvas.Background>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
+                            </local:DrawingCanvas.Background>
+                        </local:DrawingCanvas>
 
                     </Border>
 
