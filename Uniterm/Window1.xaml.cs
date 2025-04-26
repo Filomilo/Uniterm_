@@ -16,6 +16,7 @@ using System.Windows.Markup;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using Uniterm.Models;
 
 namespace Uniterm
 {
@@ -77,7 +78,7 @@ namespace Uniterm
         {
             try
             {
-                MyDrawing.fontFamily = new FontFamily(e.AddedItems[0].ToString());
+                UnitermCanvas.fontFamily = new FontFamily(e.AddedItems[0].ToString());
                 modified = true;
             }
             catch (Exception ex)
@@ -91,7 +92,7 @@ namespace Uniterm
         {
             try
             {
-                MyDrawing.fontsize = (int)e.AddedItems[0];
+                DrawingCanvas.fontsize = (int)e.AddedItems[0];
                 modified = true;
             }
             catch (Exception ex)
@@ -102,43 +103,44 @@ namespace Uniterm
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddUniterm au = new AddUniterm();
+            //AddUniterm au = new AddUniterm();
 
-            au.ShowDialog();
+            //au.ShowDialog();
 
-            if (au.tbA.Text.Length > 250 || au.tbB.Text.Length > 250)
-            {
-                MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //if (au.tbA.Text.Length > 250 || au.tbB.Text.Length > 250)
+            //{
+            //    MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
-            MyDrawing.sA = au.tbA.Text;
-            MyDrawing.sB = au.tbB.Text;
+            //UnitermCanvas.sA = au.tbA.Text;
+            //UnitermCanvas.sB = au.tbB.Text;
 
-            MyDrawing.sOp = au.rbSr.IsChecked == true ? " ; " : " , ";
+            //UnitermCanvas.sOp = au.rbSr.IsChecked == true ? " ; " : " , ";
 
-            btnRedraw_Click(sender, e);
+            //btnRedraw_Click(sender, e);
 
-            modified = true;
+            //modified = true;
 
         }
 
         private void btnAddEl_Click(object sender, RoutedEventArgs e)
         {
-            AddElem ae = new AddElem();
+            AbstractOperation op = AddElem.GetParrarelOpration ("Dodaj operacje zrónoleglania");
 
-            ae.ShowDialog();
-            if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
-            {
-                MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            MyDrawing.eA = ae.tbA.Text;
-            MyDrawing.eB = ae.tbB.Text;
-            MyDrawing.eC = ae.tbC.Text;
+            Console.WriteLine(op);
+            //ae.ShowDialog();
+            //if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
+            //{
+            //    MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
+            UnitermCanvas.eA = ae.tbA.Text;
+            //UnitermCanvas.eB = ae.tbB.Text;
+            //UnitermCanvas.eC = ae.tbC.Text;
 
-            btnRedraw_Click(sender, e);
-            modified = true;
+            //btnRedraw_Click(sender, e);
+            //modified = true;
         }
 
         private void btnRedraw_Click(object sender, RoutedEventArgs e)
@@ -148,7 +150,7 @@ namespace Uniterm
             DrawingVisual dv = new DrawingVisual();
             using (DrawingContext dc = dv.RenderOpen())
             {
-                MyDrawing md = new MyDrawing(dc);
+                UnitermCanvas md = new UnitermCanvas(dc);
 
                 md.Redraw();
                 dc.Close();
@@ -160,172 +162,172 @@ namespace Uniterm
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
-            char operacja = 'X';
+            //char operacja = 'X';
             
-            switch (MessageBox.Show("Co zamienić?\n [Tak]==A, [Nie]==B", "Zamień", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
-            {
-                case MessageBoxResult.Yes: operacja = 'A';
+            //switch (MessageBox.Show("Co zamienić?\n [Tak]==A, [Nie]==B", "Zamień", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+            //{
+            //    case MessageBoxResult.Yes: operacja = 'A';
                 
-                    break;
-                case MessageBoxResult.No: operacja = 'B';
+            //        break;
+            //    case MessageBoxResult.No: operacja = 'B';
                 
-                    break;
-                case MessageBoxResult.Cancel: return;
-            }
+            //        break;
+            //    case MessageBoxResult.Cancel: return;
+            //}
 
-            cDrawing.ClearAll();
-            MyDrawing.oper = operacja;
-            btnRedraw_Click(sender, e);
-            modified = true;
+            //cDrawing.ClearAll();
+            //UnitermCanvas.oper = operacja;
+            //btnRedraw_Click(sender, e);
+            //modified = true;
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-           // Int32 fontsize_1 = (Int32)MyDrawing.fontsize;
-            try
-            {
+      //     // Int32 fontsize_1 = (Int32)UnitermCanvas.fontsize;
+      //      try
+      //      {
 
-                string sql = "insert into uniterms values('{0}','{1}','{2}','{3}','{4}','{5}','{6}',''{7}','{8}',{9},'{10}','{11}');";
-                if (nowy)
-                {
-                    sql = "insert into uniterms values('" + tbName.Text + "','" + tbDescription.Text + "','" +
-                        MyDrawing.sA + "','" + MyDrawing.sB + "','" + MyDrawing.sOp + "','" + MyDrawing.eA + "','" +
-                        MyDrawing.eB + "','" + MyDrawing.eC + "'," + (Int32) MyDrawing.fontsize  + ",'" + MyDrawing.fontFamily + "','" + MyDrawing.oper + "');";
-                }
-                else
-                {
+      //          string sql = "insert into uniterms values('{0}','{1}','{2}','{3}','{4}','{5}','{6}',''{7}','{8}',{9},'{10}','{11}');";
+      //          if (nowy)
+      //          {
+      //              sql = "insert into uniterms values('" + tbName.Text + "','" + tbDescription.Text + "','" +
+      //                  UnitermCanvas.sA + "','" + UnitermCanvas.sB + "','" + UnitermCanvas.sOp + "','" + UnitermCanvas.eA + "','" +
+      //                  UnitermCanvas.eB + "','" + UnitermCanvas.eC + "'," + (Int32) DrawingCanvas.fontsize  + ",'" + UnitermCanvas.fontFamily + "','" + UnitermCanvas.oper + "');";
+      //          }
+      //          else
+      //          {
                     
-                    sql = "UPDATE uniterms SET " +
-      "description = '" + tbDescription.Text +
-      "',sA = '" + MyDrawing.sA +
-      "',sB ='" + MyDrawing.sB +
-      "',sOp ='" + MyDrawing.sOp +
-      "',eA = '" + MyDrawing.eA +
-      "',eB = '" + MyDrawing.eB +
-      "',eC = '" + MyDrawing.eC +
-      "',fontSize =" + (Int32)MyDrawing.fontsize +
-      ",fontFamily = '" + MyDrawing.fontFamily +
-      "',switched ='" + MyDrawing.oper +
-        "' WHERE name ='" + tbName.Text + "';"; //C:\SLOWIK\Uniterm\Uniterm\ClassDiagram2.cd
-                }
+      //              sql = "UPDATE uniterms SET " +
+      //"description = '" + tbDescription.Text +
+      //"',sA = '" + UnitermCanvas.sA +
+      //"',sB ='" + UnitermCanvas.sB +
+      //"',sOp ='" + UnitermCanvas.sOp +
+      //"',eA = '" + UnitermCanvas.eA +
+      //"',eB = '" + UnitermCanvas.eB +
+      //"',eC = '" + UnitermCanvas.eC +
+      //"',fontSize =" + (Int32)DrawingCanvas.fontsize +
+      //",fontFamily = '" + UnitermCanvas.fontFamily +
+      //"',switched ='" + UnitermCanvas.oper +
+      //  "' WHERE name ='" + tbName.Text + "';"; //C:\SLOWIK\Uniterm\Uniterm\ClassDiagram2.cd
+      //          }
 
-                db.RunQuery(sql);
+      //          db.RunQuery(sql);
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+      //      }
+      //      catch (Exception ex)
+      //      {
+      //          MessageBox.Show(ex.Message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+      //      }
 
-            Window_Loaded(sender, e);
+      //      Window_Loaded(sender, e);
 
-            lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
-            lbUniterms.SelectedValue = tbName.Text;
-            lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
+      //      lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
+      //      lbUniterms.SelectedValue = tbName.Text;
+      //      lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
 
           
         }
 
         private bool CheckSave()
         {
-
-            if (!modified)
-                return true;
-            else
-            {
-                switch (MessageBox.Show("Chcesz zapisać?", "Zapis", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
-                {
-                    case MessageBoxResult.Yes:
-                        {
-                            MenuItem_Click_1(null, null);
-                            modified = false;
-                            nowy = false;
-                            return true;
-                        }
-                    case MessageBoxResult.No:
-                        {
-                            modified = false;
-                            nowy = false;
-                            return true;
-                        }
-                    case MessageBoxResult.Cancel: return false;
-                    default: return false;
-                }
-            }
+            throw new NotImplementedException();
+            //if (!modified)
+            //    return true;
+            //else
+            //{
+            //    switch (MessageBox.Show("Chcesz zapisać?", "Zapis", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+            //    {
+            //        case MessageBoxResult.Yes:
+            //            {
+            //                MenuItem_Click_1(null, null);
+            //                modified = false;
+            //                nowy = false;
+            //                return true;
+            //            }
+            //        case MessageBoxResult.No:
+            //            {
+            //                modified = false;
+            //                nowy = false;
+            //                return true;
+            //            }
+            //        case MessageBoxResult.Cancel: return false;
+            //        default: return false;
+            //    }
+            //}
 
         }
 
         private void ehlbUNitermsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CheckSave())
-            {
-                DataRow dr;
-                try
-                {
-                    dr = db.CreateDataRow(String.Format("select * from uniterms where name = '{0}';", lbUniterms.SelectedItem.ToString()));
+            //if (CheckSave())
+            //{
+            //    DataRow dr;
+            //    try
+            //    {
+            //        dr = db.CreateDataRow(String.Format("select * from uniterms where name = '{0}';", lbUniterms.SelectedItem.ToString()));
 
 
-                    MyDrawing.eA = (string)dr["eA"];
-                    MyDrawing.eB = (string)dr["eB"];
-                    MyDrawing.eC = (string)dr["eC"];
+            //        UnitermCanvas.eA = (string)dr["eA"];
+            //        UnitermCanvas.eB = (string)dr["eB"];
+            //        UnitermCanvas.eC = (string)dr["eC"];
 
-                    MyDrawing.sA = (string)dr["sA"];
-                    MyDrawing.sB = (string)dr["sB"];
-                    MyDrawing.sOp = (string)dr["sOp"];
+            //        UnitermCanvas.sA = (string)dr["sA"];
+            //        UnitermCanvas.sB = (string)dr["sB"];
+            //        UnitermCanvas.sOp = (string)dr["sOp"];
 
-                    MyDrawing.fontFamily = new FontFamily((string)dr["fontFamily"]);
+            //        UnitermCanvas.fontFamily = new FontFamily((string)dr["fontFamily"]);
                     
-                    MyDrawing.fontsize = (Int32)dr["fontSize"];
+            //        DrawingCanvas.fontsize = (Int32)dr["fontSize"];
 
-                    MyDrawing.oper = ((string)dr["switched"])[0]; ;
-
-
-                    tbName.Text = (string)dr["name"];
-                    tbDescription.Text = (string)dr["description"];
-
-                    cbFonts.SelectedValue = MyDrawing.fontFamily;
-                    cbfSize.SelectedValue = (Int32)MyDrawing.fontsize;
-
-                    cDrawing.ClearAll();
+            //        UnitermCanvas.oper = ((string)dr["switched"])[0]; ;
 
 
+            //        tbName.Text = (string)dr["name"];
+            //        tbDescription.Text = (string)dr["description"];
 
-                    DrawingVisual dv = new DrawingVisual();
-                    cDrawing.Width = 5000;
-                    cDrawing.Height = 5000;
+            //        cbFonts.SelectedValue = UnitermCanvas.fontFamily;
+            //        cbfSize.SelectedValue = (Int32)DrawingCanvas.fontsize;
 
-                    btnRedraw_Click(sender, e);
-                    nowy = false;
-                    modified = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            //        cDrawing.ClearAll();
 
-            }
+
+
+            //        DrawingVisual dv = new DrawingVisual();
+            //        cDrawing.Width = 5000;
+            //        cDrawing.Height = 5000;
+
+            //        btnRedraw_Click(sender, e);
+            //        nowy = false;
+            //        modified = false;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+
+            //}
         }
 
         private void ehNowyClick(object sender, RoutedEventArgs e)
         {
-            MyDrawing.ClearAll();
-            cDrawing.ClearAll();
-            nowy = true;
-            modified = false;
+            //UnitermCanvas.ClearAll();
+            //cDrawing.ClearAll();
+            //nowy = true;
+            //modified = false;
         }
 
         private void tbDescKeyUP(object sender, KeyEventArgs e)
         {
-            modified = true;
+            //modified = true;
         }
 
         private void HorScroll_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            TranslateTransform tt = new TranslateTransform();
-            tt.X = -HorScroll.Value;
-            tt.Y = -VerScroll.Value;
+            //TranslateTransform tt = new TranslateTransform();
+            //tt.X = -HorScroll.Value;
+            //tt.Y = -VerScroll.Value;
 
-            cDrawing.RenderTransform = tt;
+            //cDrawing.RenderTransform = tt;
         }
 
 
