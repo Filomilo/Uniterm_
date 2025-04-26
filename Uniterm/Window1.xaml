@@ -27,26 +27,23 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5"
         >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="165*"/>
-            <ColumnDefinition Width="68*"/>
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="20"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
         <Menu x:Name="menu1" Background="{x:Null}" Grid.Column="0
-" Height="20" Grid.ColumnSpan="2">
+" Grid.ColumnSpan="2" Margin="0,-2,0,0">
             <MenuItem Header="Plik." Margin="15, 0, 0, 0">
                 <MenuItem Header="Nowy" Click="ehNowyClick"/>
                 <MenuItem Header="Wymiana" Click="MenuItem_Click"/>
                 <MenuItem Header="Zapisz" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        <Grid RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="True" Grid.Row="1" Grid.ColumnSpan="2" 
+        <Grid RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="True" Grid.ColumnSpan="2" Grid.Row="1" 
         >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -98,25 +95,15 @@
             </Border>
             <StackPanel Grid.Column="4" Width="150" HorizontalAlignment="Center">
 
-                <Button
+                <Button x:Name="btnAddSek" Margin="0,10,0,0" Content="Sekwencjonowanie" Click="Button_Click" HorizontalAlignment="Center"/>
 
-                    Width="99" x:Name="btnAddSek" Margin="0,10,0,0" Height="23" Content="Sekwencjonowanie" Click="Button_Click"/>
+                <Button x:Name="btnAddEl" Margin="0,20,0,0" Content="Eliminacja" Click="btnAddEl_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <Button
+                <Label x:Name="label2" Margin="0,20,0,0" Content="Czcionka" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}"/>
 
-                    Width="96" x:Name="btnAddEl" Margin="0,20,0,0" Height="23" Content="Eliminacja" Click="btnAddEl_Click"/>
+                <ComboBox SelectionChanged="ehCBFontsChanged" x:Name="cbFonts" HorizontalAlignment="Stretch" Margin="10,0,10,0"  />
 
-                <Label
-
-                    Width="67" x:Name="label2" Margin="0,20,0,0" Height="24" Content="Czcionka"/>
-
-                <ComboBox
-
-                    Width="120" SelectionChanged="ehCBFontsChanged" x:Name="cbFonts" Height="23"/>
-
-                <StackPanel
-
-                    Height="37" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
 
                     <Label
 
@@ -124,7 +111,7 @@
 
                     <ComboBox
 
-                        Width="65" SelectionChanged="ehcbfSizeChanged" x:Name="cbfSize" Height="23">
+                        Width="85" SelectionChanged="ehcbfSizeChanged" x:Name="cbfSize" Height="45" VerticalAlignment="Center">
 
                         <System:String
 
@@ -134,17 +121,13 @@
 
                 </StackPanel>
 
-                <Button
+                <Button x:Name="btnRedraw" Margin="0,20,0,0" Content="Przerysowanie" Click="btnRedraw_Click" HorizontalAlignment="Center"/>
 
-                    Width="89" x:Name="btnRedraw" Margin="0,20,0,0" Height="23" Content="Przerysowanie" Click="btnRedraw_Click"/>
-
-                <Button
-
-                    Width="75" x:Name="btnAdd" Margin="10,10,10,0" Height="45" Content="Wyczyść" Click="btnAdd_Click"/>
+                <Button x:Name="btnAdd" Margin="10,10,10,0" Content="Wyczyść" Click="btnAdd_Click" HorizontalAlignment="Center"/>
 
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Grid.Row="2">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,0,91,0">
             <Label
 
     Width="47" x:Name="label3" Height="24" Content="Tytuł"/>
