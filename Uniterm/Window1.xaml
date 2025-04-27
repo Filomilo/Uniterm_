@@ -94,7 +94,7 @@
 
                 <Button
 
-                    Width="99" x:Name="btnAddSek" Margin="0,10,0,0" Height="23" Content="Sekwencjonowanie" Click="Button_Click"/>
+                    Width="114" x:Name="btnAddSek" Margin="0,10,0,0" Content="Sekwencjonowanie" Click="Button_Click" Height="20"/>
 
                 <Button
 
