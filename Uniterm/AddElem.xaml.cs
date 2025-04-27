@@ -48,6 +48,7 @@ namespace Uniterm
             try
             {
                 validateInput();
+                this.DialogResult = true;
                 Close();
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace Uniterm
                     addElem.tbA.Text,
                     addElem.tbB.Text,
                     addElem.tbC.Text,
-                    DirectionEnum.Horizontal
+                    DirectionEnum.Vertical
                 );
                 return operation;
             }

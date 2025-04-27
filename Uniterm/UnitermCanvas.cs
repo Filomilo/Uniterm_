@@ -32,27 +32,36 @@ namespace Uniterm
         {
             // tmp
             //HorizontalOperation.Add(OperationFactory.CreateOperation(OperationType.Sequencing,"a+b","1+2",";",DirectionEnum.Horizontal));
-            AbstractOperation op = OperationFactory.CreateOperation(
-                OperationType.Parallel,
-                "c+d",
-                "4+4",
-                ";",
-                DirectionEnum.Horizontal
-            );
-            this.AddVerticalOperation(
-                OperationFactory.CreateOperation(
-                    OperationType.Sequencing,
-                    "a+b",
-                    op,
-                    ";",
-                    DirectionEnum.Vertical
-                )
-            );
+            //AbstractOperation op = OperationFactory.CreateOperation(
+            //    OperationType.Parallel,
+            //    "c+d",
+            //    "4+4",
+            //    ";",
+            //    DirectionEnum.Horizontal
+            //);
+            //this.AddVerticalOperation(
+            //    OperationFactory.CreateOperation(
+            //        OperationType.Sequencing,
+            //        "a+b",
+            //        op,
+            //        ";",
+            //        DirectionEnum.Vertical
+            //    )
+            //);
             //this.AddVerticalOperation(
             //    OperationFactory.CreateOperation(
             //        OperationType.Sequencing,
             //        "1111a+b",
             //        ";opp",
+            //        ";",
+            //        DirectionEnum.Vertical
+            //    )
+            //);
+            //this.AddVerticalOperation(
+            //    OperationFactory.CreateOperation(
+            //        OperationType.Sequencing,
+            //        "a+b",
+            //        "op",
             //        ";",
             //        DirectionEnum.Vertical
             //    )
@@ -66,6 +75,21 @@ namespace Uniterm
             //        DirectionEnum.Horizontal
             //    )
             //);
+            //this.AddVerticalOperation(
+            //    OperationFactory.CreateOperation(
+            //        OperationType.Sequencing,
+            //        "a+b",
+            //        OperationFactory.CreateOperation(
+            //            OperationType.Parallel,
+            //            "a+b",
+            //            "op",
+            //            ";",
+            //            DirectionEnum.Horizontal
+            //        ),
+            //        ";",
+            //        DirectionEnum.Vertical
+            //    )
+            //);
         }
 
         private UnitermCollection unitermCollection = new UnitermCollection();
@@ -77,6 +101,7 @@ namespace Uniterm
         {
             double width = 0;
             Size size = new Size(0, 0);
+            int spacing = 20;
             foreach (var abstractOperation in unitermCollection.VerticalOperations)
             {
                 abstractOperation.DrawAtPostion(canvas, dc, new Point(0, size.Height));
@@ -85,14 +110,20 @@ namespace Uniterm
                 {
                     width = currSize.Width;
                 }
-                size = new Size(size.Width + currSize.Width, size.Height + currSize.Height);
+                size = new Size(
+                    size.Width + currSize.Width,
+                    size.Height + currSize.Height + spacing
+                );
             }
             size = new Size(width, 0);
             foreach (var abstractOperation in unitermCollection.HorizontalOperations)
             {
                 abstractOperation.DrawAtPostion(canvas, dc, new Point(size.Width, 0));
                 Size currSize = abstractOperation.GetSizeOnCavnas(canvas);
-                size = new Size(size.Width + currSize.Width, size.Height + currSize.Height);
+                size = new Size(
+                    size.Width + currSize.Width + spacing,
+                    size.Height + currSize.Height
+                );
             }
         }
 

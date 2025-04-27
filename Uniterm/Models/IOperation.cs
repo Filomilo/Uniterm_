@@ -46,7 +46,7 @@ namespace Uniterm.Models
         }
         public string Separator { get; }
 
-        DirectionEnum Direction
+        public DirectionEnum Direction
         {
             get { return _Direction; }
         }
@@ -175,20 +175,14 @@ namespace Uniterm.Models
                     + SecondEpressionSize.Width
                     + SeperatorSize.Width
                     + 2 * GapSize,
-                FirstEpressionSize.Height
-                    + SecondEpressionSize.Height
-                    + SeperatorSize.Height
-                    + 2 * GapSize
+                FirstEpressionSize.Height + GapSize
             );
             position = new Point(position.X + GapSize * 1.5, position.Y + GapSize * 1.5);
             Point CurveStartPostion = new Point(position.X + TotalSize.Width, position.Y);
             Point CurveEndPostion = position;
             Size CurveSize = GetOperatorSize(CurveStartPostion, CurveEndPostion); //Beizer.GetBeizerSize(CurveStartPostion, CurveEndPostion);
             OperatorSize = CurveSize;
-            TotalSize = new Size(
-                TotalSize.Width + CurveSize.Width,
-                TotalSize.Height + CurveSize.Height
-            );
+            TotalSize = new Size(CurveSize.Width, TotalSize.Height + CurveSize.Height);
         }
 
         protected void GetVerticalSizeParamaterse(
@@ -210,22 +204,19 @@ namespace Uniterm.Models
                 FirstEpressionSize.Width
                     + SecondEpressionSize.Width
                     + SeperatorSize.Width
-                    + GapSize,
+                    + 3 * GapSize,
                 FirstEpressionSize.Height
                     + SecondEpressionSize.Height
                     + SeperatorSize.Height
-                    + GapSize
+                    + 3 * GapSize
             );
             position = new Point(position.X + GapSize * 1.5, position.Y + GapSize * 1.5);
             Point CurveStartPostion = position;
-            Point CurveEndPostion = new Point(position.X, TotalSize.Height);
+            Point CurveEndPostion = new Point(position.X, position.Y + TotalSize.Height);
             Size CurveSize = GetOperatorSize(CurveStartPostion, CurveEndPostion); //
             OperatorSize = CurveSize;
 
-            TotalSize = new Size(
-                TotalSize.Width + CurveSize.Width,
-                TotalSize.Height + CurveSize.Height
-            );
+            TotalSize = new Size(TotalSize.Width + CurveSize.Width, CurveSize.Height);
         }
 
         protected abstract void DrawOpeartor(
@@ -331,6 +322,35 @@ namespace Uniterm.Models
         public override string ToString()
         {
             return $"[{this.ExpressionA}] {this.Separator} [{this.ExpressionB}]";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (AbstractOperation)obj;
+
+            return EqualsExpression(this.ExpressionA, other.ExpressionA)
+                && EqualsExpression(this.ExpressionB, other.ExpressionB)
+                && string.Equals(this.Separator, other.Separator)
+                && this.Direction == other.Direction;
+        }
+
+        private bool EqualsExpression(object a, object b)
+        {
+            if (a == null && b == null)
+                return true;
+            if (a == null || b == null)
+                return false;
+
+            if (a is string strA && b is string strB)
+                return strA == strB;
+
+            if (a is AbstractOperation opA && b is AbstractOperation opB)
+                return opA.Equals(opB);
+
+            return false;
         }
     }
 }

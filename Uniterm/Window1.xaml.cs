@@ -40,20 +40,19 @@ namespace Uniterm
             UnitermCanvas uniterm = new UnitermCanvas();
             _unitermCanvas = uniterm;
             _drawingCanvas.AddDrawable(uniterm);
-            _db = new UnitermDataBaseMock();
+            _db = new JsonUnitermDataBase();
             _db.OnDbChangeEvent += RefreshDbList;
             _db.LoadUnitermCollection();
             _unitermCanvas.UnitermCanvasChangedEvent += _drawingCanvas.Refresh;
         }
 
-        DataBase db;
-        bool nowy = false,
-            modified = false;
-
         private void RefreshDbList()
         {
             lbUniterms.Items.Clear();
-            foreach (var uniterm in _db.GetUnitermCollectionEntries())
+            var collection = _db.GetUnitermCollectionEntries();
+            if (collection == null)
+                return;
+            foreach (var uniterm in collection)
             {
                 lbUniterms.Items.Add(uniterm);
             }
@@ -73,20 +72,6 @@ namespace Uniterm
                 cbfSize.Items.Add(i);
             }
             cbfSize.SelectedIndex = 9;
-
-            //db = new DataBase();
-            ////  DataTable dt = db.CreateDataTable("select name from uniterms;");
-
-            //lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
-            //lbUniterms.Items.Clear();
-
-            ///*  foreach (DataRow dr in dt.Rows)
-            //  {
-            //      lbUniterms.Items.Add(dr["name"]);
-            //  }*/
-            //modified = false;
-            //nowy = false;
-            //lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
         }
 
         private void ehCBFontsChanged(object sender, SelectionChangedEventArgs e)
@@ -120,27 +105,6 @@ namespace Uniterm
         private void btnRedraw_Click(object sender, RoutedEventArgs e)
         {
             ChangeWIndow.Change(_unitermCanvas);
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //char operacja = 'X';
-
-            //switch (MessageBox.Show("Co zamienić?\n [Tak]==A, [Nie]==B", "Zamień", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
-            //{
-            //    case MessageBoxResult.Yes: operacja = 'A';
-
-            //        break;
-            //    case MessageBoxResult.No: operacja = 'B';
-
-            //        break;
-            //    case MessageBoxResult.Cancel: return;
-            //}
-
-            //cDrawing.ClearAll();
-            //UnitermCanvas.oper = operacja;
-            //btnRedraw_Click(sender, e);
-            //modified = true;
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

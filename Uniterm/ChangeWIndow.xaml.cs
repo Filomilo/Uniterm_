@@ -70,6 +70,7 @@ namespace Uniterm
 
         private void ChangeButton_Click(object sender, RoutedEventArgs e)
         {
+            UnitermCollection unitermCollection = _unitermCanvas.GetUnitermCollection();
             if (
                 this.ListBox_Horziontal.SelectedItem == null
                 || this.ListBox_Vertical.SelectedItem == null
@@ -80,12 +81,12 @@ namespace Uniterm
             }
             int indexHorziontal = this.ListBox_Horziontal.SelectedIndex;
             int indexVertical = this.ListBox_Vertical.SelectedIndex;
-            AbstractOperation ParamA = this
-                ._unitermCanvas.GetVerticalOperations()
-                .ElementAt(indexVertical);
-            AbstractOperation ParamB = this
-                ._unitermCanvas.GetHorizontalOperations()
-                .ElementAt(indexHorziontal);
+            AbstractOperation ParamA = unitermCollection.VerticalOperations.ElementAt(
+                indexVertical
+            );
+            AbstractOperation ParamB = unitermCollection.HorizontalOperations.ElementAt(
+                indexHorziontal
+            );
             if (ParamA != null && ParamB != null)
             {
                 if (this.RadioButton_Vertical_A.IsChecked == true)
@@ -101,7 +102,8 @@ namespace Uniterm
                     MessageBox.Show("Please select a value");
                     return;
                 }
-                _unitermCanvas.GetHorizontalOperations().RemoveAt(indexHorziontal);
+                unitermCollection.HorizontalOperations.RemoveAt(indexHorziontal);
+                this._unitermCanvas.loadCollection(unitermCollection);
             }
 
             this.Close();

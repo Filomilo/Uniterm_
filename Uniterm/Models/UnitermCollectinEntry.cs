@@ -29,5 +29,15 @@ namespace Uniterm.Models
         {
             return $"{Name} -- {Description}";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UnitermCollectinEntry))
+                return false;
+            UnitermCollectinEntry other = (UnitermCollectinEntry)obj;
+            return Name == other.Name
+                && Description == other.Description
+                && Collection.Equals(other.Collection);
+        }
     }
 }

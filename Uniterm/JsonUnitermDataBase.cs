@@ -14,6 +14,14 @@ namespace Uniterm
     {
         List<UnitermCollectinEntry> unitermCollection = new List<UnitermCollectinEntry>();
 
+        public JsonUnitermDataBase()
+        {
+            if (!File.Exists(JsonPath))
+            {
+                File.Create(JsonPath).Close();
+            }
+        }
+
         private string JsonPath
         {
             get
@@ -31,6 +39,10 @@ namespace Uniterm
         {
             string json = File.ReadAllText(JsonPath);
             unitermCollection = JsonConverter.ConvertFromJson<List<UnitermCollectinEntry>>(json);
+            if (unitermCollection == null)
+            {
+                unitermCollection = new List<UnitermCollectinEntry>();
+            }
             OnDbChangeEvent?.Invoke();
         }
 

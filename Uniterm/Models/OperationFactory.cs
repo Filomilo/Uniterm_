@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace Uniterm.Models
 {
-   public enum OperationType
+    public enum OperationType
     {
-        Parallel, Sequencing
+        Parallel,
+        Sequencing,
     }
+
     public class OperationFactory
     {
-        public static AbstractOperation CreateOperation(OperationType type, object expressionA, object expressionB, string separator, DirectionEnum direction)
+        public static AbstractOperation CreateOperation(
+            OperationType type,
+            object expressionA,
+            object expressionB,
+            string separator,
+            DirectionEnum direction
+        )
         {
             switch (type)
             {
@@ -23,6 +31,16 @@ namespace Uniterm.Models
                 default:
                     throw new ArgumentException("Invalid operation type");
             }
+        }
+
+        internal static OperationType GetOperationType(object op)
+        {
+            if (op.GetType().Equals(typeof(ParrarelOpartion)))
+                return OperationType.Parallel;
+            else if (op.GetType().Equals(typeof(SequancingOpration)))
+                return OperationType.Sequencing;
+            else
+                throw new ArgumentException("Invalid operation type");
         }
     }
 }
