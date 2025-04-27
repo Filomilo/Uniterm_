@@ -26,7 +26,6 @@
 " Height="20" Grid.ColumnSpan="2">
             <MenuItem Header="Plik." Margin="15, 0, 0, 0">
                 <MenuItem Header="Nowy" Click="ehNowyClick"/>
-                <MenuItem Header="Wymiana" Click="MenuItem_Click"/>
                 <MenuItem Header="Zapisz" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
@@ -39,7 +38,22 @@
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="lbUniterms" BorderThickness="3" SelectionChanged="ehlbUNitermsSelectionChanged" Width="200" Background="{x:Null}" />
+            <ListBox x:Name="lbUniterms" BorderThickness="3" SelectionChanged="ehlbUNitermsSelectionChanged" Width="200" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding}" 
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Stretch" 
+                                       VerticalAlignment="Center" 
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Width}"
+                                       />
+                        </Grid>
+
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Border
                 BorderThickness="1" BorderBrush="#FF359598" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Grid.ColumnSpan="3">
                 <Border.RenderTransform>
@@ -57,11 +71,11 @@
 
                     <ScrollBar
 
-                        ValueChanged="HorScroll_ValueChanged" SmallChange="1" Orientation="Horizontal" x:Name="HorScroll" Maximum="{Binding Width, ElementName=cDrawing}"  DockPanel.Dock="Bottom" ViewportSize="{Binding ActualWidth, ElementName=cDrawing, Mode=OneWay}"/>
+                         SmallChange="1" Orientation="Horizontal" x:Name="HorScroll" Maximum="{Binding Width, ElementName=cDrawing}"  DockPanel.Dock="Bottom" ViewportSize="{Binding ActualWidth, ElementName=cDrawing, Mode=OneWay}"/>
 
                     <ScrollBar
 
-                        ValueChanged="HorScroll_ValueChanged" x:Name="VerScroll" Minimum="0" Maximum="{Binding Height, ElementName=cDrawing}" DockPanel.Dock="Right" ViewportSize="{Binding ActualHeight, ElementName=cDrawing, Mode=OneWay}" />
+                         x:Name="VerScroll" Minimum="0" Maximum="{Binding Height, ElementName=cDrawing}" DockPanel.Dock="Right" ViewportSize="{Binding ActualHeight, ElementName=cDrawing, Mode=OneWay}" />
 
                     <Border
 
@@ -116,24 +130,10 @@
 
                 <Button
 
-                    Width="89" x:Name="btnRedraw" Margin="0,20,0,0" Height="23" Content="Przerysowanie" Click="btnRedraw_Click"/>
-
-                <Button
-
-                    Width="75" x:Name="btnAdd" Margin="10,10,10,0" Height="45" Content="Wyczyść" Click="btnAdd_Click"/>
+                    Width="89" x:Name="btnRedraw" Margin="0,20,0,0" Height="23" Content="Zamiana" Click="btnRedraw_Click"/>
 
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Grid.Row="2">
-            <Label
-
-    Width="47" x:Name="label3" Height="24" Content="Tytuł"/>
-            <TextBox x:Name="tbName" Width="120" Height="19" />
-            <Label
-
-    Width="38" x:Name="label4" Height="24" Content="Opis"/>
-            <TextBox x:Name="tbDescription" KeyUp="tbDescKeyUP" Height="19" Width="575"/>
-        </StackPanel>
 
     </Grid>
 

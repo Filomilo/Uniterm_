@@ -1,0 +1,41 @@
+﻿<Window x:Class="Uniterm.ChangeWIndow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Uniterm"
+        mc:Ignorable="d"
+        Title="Zamiana" Height="455" Width="675">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+
+        </Grid.RowDefinitions>
+        <Label Content="Pionowe" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+        <Label Content="Poziomowe" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Grid.Column="2"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1">
+            <ListBox x:Name="ListBox_Horziontal" Margin="0,0,0,0" Background="{x:Null}"  SelectionMode="Single" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" >
+            <ListBox x:Name="ListBox_Vertical" Background="{x:Null}" SelectionMode="Single" SelectionChanged="ListBox_Vertical_SelectionChanged">
+              
+            </ListBox>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="RadioButton_Vertical_A" Content="[[RadioButton_Vertical_A]]" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="RadioButton_Vertical_A_Checked" IsChecked="True"/>
+                <RadioButton x:Name="RadioButton_Vertical_B" Content="[[RadioButton_Vertical_B]]" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" Checked="RadioButton_Vertical_B_Checked" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,0,0,0"/>
+            </StackPanel>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="1"/>
+        <Button x:Name="ChangeButton" Grid.Column="2" Content="Zamień" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"  Margin="0,0,10,0" Click="ChangeButton_Click"/>
+
+    </Grid>
+</Window>

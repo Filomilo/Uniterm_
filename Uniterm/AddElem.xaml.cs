@@ -20,34 +20,77 @@ namespace Uniterm
     /// </summary>
     public partial class AddElem : Window
     {
-
         public AddElem(string tile)
         {
             InitializeComponent();
             this.Title = tile;
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e) 
+        private void validateInput()
         {
-            Close();
+            if (this.tbA.Text.Length == 0)
+            {
+                throw new Exception("Nie można dodać operacji bez podania A");
+            }
+
+            if (this.tbB.Text.Length == 0)
+            {
+                throw new Exception("Nie można dodać operacji bez podania B");
+            }
+            if (this.tbC.Text.Length == 0)
+            {
+                throw new Exception("Nie można dodać operacji bez podania C");
+            }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                validateInput();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public static AbstractOperation GetParrarelOpration(string dodajOperacjeZrónoleglania)
         {
             AddElem addElem = new AddElem(dodajOperacjeZrónoleglania);
-            addElem.ShowDialog();
+            var res = addElem.ShowDialog();
+            if (res.HasValue && res.Value == true)
+            {
+                AbstractOperation operation = OperationFactory.CreateOperation(
+                    OperationType.Parallel,
+                    addElem.tbA.Text,
+                    addElem.tbB.Text,
+                    addElem.tbC.Text,
+                    DirectionEnum.Horizontal
+                );
+                return operation;
+            }
 
-            AbstractOperation operation = OperationFactory.CreateOperation(OperationType.Parallel, addElem.tbA.Text , addElem.tbB.Text, addElem.tbC.Text, DirectionEnum.Horizontal);
-            return operation;
+            return null;
         }
 
         public static AbstractOperation GetSequencingOperation(string dodajOperacjeSekwencjonowania)
         {
             AddElem addElem = new AddElem(dodajOperacjeSekwencjonowania);
-            addElem.ShowDialog();
-
-            AbstractOperation operation = OperationFactory.CreateOperation(OperationType.Sequencing, addElem.tbA.Text, addElem.tbB.Text, addElem.tbC.Text, DirectionEnum.Horizontal);
-            return operation;
+            var res = addElem.ShowDialog();
+            if (res.HasValue && res.Value == true)
+            {
+                AbstractOperation operation = OperationFactory.CreateOperation(
+                    OperationType.Sequencing,
+                    addElem.tbA.Text,
+                    addElem.tbB.Text,
+                    addElem.tbC.Text,
+                    DirectionEnum.Horizontal
+                );
+                return operation;
+            }
+            return null;
         }
     }
 }

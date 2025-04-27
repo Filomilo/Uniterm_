@@ -95,17 +95,6 @@ namespace Uniterm.Models
             }
         }
 
-        //public abstract void DrawVerticalyAtPostion(
-        //    IDrawingCanvas drawingCanvas,
-        //    DrawingContext dc,
-        //    Point position
-        //);
-        //public abstract void DrawHorizontalyAtPostion(
-        //    IDrawingCanvas drawingCanvas,
-        //    DrawingContext dc,
-        //    Point position
-        //);
-
         public Size GetSizeOnCavnas(IDrawingCanvas drawingCanvas)
         {
             switch (Direction)
@@ -164,25 +153,7 @@ namespace Uniterm.Models
             }
         }
 
-        //protected abstract void GetHorizontalSizeParamaterse(
-        //    IDrawingCanvas drawingCanvas,
-        //    out Size FirstEpressionSize,
-        //    out Size SecondEpressionSize,
-        //    out Size SeperatorSize,
-        //    out int GapSize,
-        //    out Size OperatorSize,
-        //    out Size TotalSize
-        //);
-        //protected abstract void GetVerticalSizeParamaterse(
-        //    IDrawingCanvas drawingCanvas,
-        //    out Size FirstEpressionSize,
-        //    out Size SecondEpressionSize,
-        //    out Size SeperatorSize,
-        //    out int GapSize,
-        //    out Size OperatorSize,
-        //    out Size TotalSize
-        //);
-        abstract protected Size GetOperatorSize(Point operatorStart, Point operataorEnd);
+        protected abstract Size GetOperatorSize(Point operatorStart, Point operataorEnd);
 
         protected void GetHorizontalSizeParamaterse(
             IDrawingCanvas drawingCanvas,
@@ -239,15 +210,15 @@ namespace Uniterm.Models
                 FirstEpressionSize.Width
                     + SecondEpressionSize.Width
                     + SeperatorSize.Width
-                    + 2 * GapSize,
+                    + GapSize,
                 FirstEpressionSize.Height
                     + SecondEpressionSize.Height
                     + SeperatorSize.Height
-                    + 2 * GapSize
+                    + GapSize
             );
             position = new Point(position.X + GapSize * 1.5, position.Y + GapSize * 1.5);
             Point CurveStartPostion = position;
-            Point CurveEndPostion = new Point(position.X, position.Y + TotalSize.Height);
+            Point CurveEndPostion = new Point(position.X, TotalSize.Height);
             Size CurveSize = GetOperatorSize(CurveStartPostion, CurveEndPostion); //
             OperatorSize = CurveSize;
 
@@ -287,7 +258,7 @@ namespace Uniterm.Models
             );
             DrawOpeartor(drawingCanvas, dc, CurveStartPostion, CurveEndPostion);
             //drawingCanvas.DrawBezier(CurveStartPostion, CurveEndPostion, dc);
-            position = new Point(position.X + CurveSize.Width, position.Y);
+            position = new Point(position.X + CurveSize.Width, position.Y + GapSize);
 
             this.DrawExpression(this.ExpressionA, drawingCanvas, dc, position);
             position.Y += 2 * GapSize;
@@ -355,6 +326,11 @@ namespace Uniterm.Models
             );
 
             return TotalSize;
+        }
+
+        public override string ToString()
+        {
+            return $"[{this.ExpressionA}] {this.Separator} [{this.ExpressionB}]";
         }
     }
 }

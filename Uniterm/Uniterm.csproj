@@ -111,6 +111,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ChangeWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Properties\SaveWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,16 +129,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ChangeWIndow.xaml.cs">
+      <DependentUpon>ChangeWIndow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="Exceptions\InvalidStringLengthException.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IDrawingCanvas.cs" />
     <Compile Include="Interfaces\IUnitermCanvas.cs" />
+    <Compile Include="Interfaces\IUnitermDataBase.cs" />
+    <Compile Include="JsonConverter.cs" />
+    <Compile Include="JsonUnitermDataBase.cs" />
     <Compile Include="MathOperation.cs" />
+    <Compile Include="Mocks\UnitermDataBaseMock.cs" />
     <Compile Include="Models\IOperation.cs" />
     <Compile Include="Models\OperationFactory.cs" />
     <Compile Include="Models\ParrelOpetion.cs" />
     <Compile Include="Models\SequancingOpration.cs" />
+    <Compile Include="Models\UnitermCollectinEntry.cs" />
+    <Compile Include="Models\UnitermCollection.cs" />
+    <Compile Include="Properties\SaveWIndow.xaml.cs">
+      <DependentUpon>SaveWIndow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shapes\Beizer.cs" />
     <Compile Include="Shapes\RectangularBrackets.cs" />
     <Compile Include="Window1.xaml.cs">

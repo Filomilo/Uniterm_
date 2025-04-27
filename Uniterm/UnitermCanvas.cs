@@ -33,35 +33,42 @@ namespace Uniterm
             // tmp
             //HorizontalOperation.Add(OperationFactory.CreateOperation(OperationType.Sequencing,"a+b","1+2",";",DirectionEnum.Horizontal));
             AbstractOperation op = OperationFactory.CreateOperation(
-                OperationType.Sequencing,
+                OperationType.Parallel,
                 "c+d",
                 "4+4",
                 ";",
                 DirectionEnum.Horizontal
             );
-            this.AddHorizontalOperation(
+            this.AddVerticalOperation(
                 OperationFactory.CreateOperation(
                     OperationType.Sequencing,
                     "a+b",
-                    "op",
+                    op,
                     ";",
                     DirectionEnum.Vertical
                 )
             );
-            this.AddVerticalOperation(
-                OperationFactory.CreateOperation(
-                    OperationType.Parallel,
-                    "a+b",
-                    "op",
-                    ";",
-                    DirectionEnum.Horizontal
-                )
-            );
+            //this.AddVerticalOperation(
+            //    OperationFactory.CreateOperation(
+            //        OperationType.Sequencing,
+            //        "1111a+b",
+            //        ";opp",
+            //        ";",
+            //        DirectionEnum.Vertical
+            //    )
+            //);
+            //this.AddHorizontalOperation(
+            //    OperationFactory.CreateOperation(
+            //        OperationType.Parallel,
+            //        "a+b",
+            //        "op",
+            //        ";",
+            //        DirectionEnum.Horizontal
+            //    )
+            //);
         }
 
-        private List<AbstractOperation> HorizontalOperation = new List<AbstractOperation>();
-        private List<AbstractOperation> VerticalOperation = new List<AbstractOperation>();
-
+        private UnitermCollection unitermCollection = new UnitermCollection();
         #endregion
 
         #region Public Methods
@@ -70,7 +77,7 @@ namespace Uniterm
         {
             double width = 0;
             Size size = new Size(0, 0);
-            foreach (var abstractOperation in HorizontalOperation)
+            foreach (var abstractOperation in unitermCollection.VerticalOperations)
             {
                 abstractOperation.DrawAtPostion(canvas, dc, new Point(0, size.Height));
                 Size currSize = abstractOperation.GetSizeOnCavnas(canvas);
@@ -81,7 +88,7 @@ namespace Uniterm
                 size = new Size(size.Width + currSize.Width, size.Height + currSize.Height);
             }
             size = new Size(width, 0);
-            foreach (var abstractOperation in VerticalOperation)
+            foreach (var abstractOperation in unitermCollection.HorizontalOperations)
             {
                 abstractOperation.DrawAtPostion(canvas, dc, new Point(size.Width, 0));
                 Size currSize = abstractOperation.GetSizeOnCavnas(canvas);
@@ -91,18 +98,51 @@ namespace Uniterm
 
         public void AddVerticalOperation(AbstractOperation op)
         {
-            this.VerticalOperation.Add(op);
+            this.unitermCollection.VerticalOperations.Add(op);
+            UnitermCanvasChangedEvent?.Invoke();
         }
 
         public void AddHorizontalOperation(AbstractOperation op)
         {
-            this.HorizontalOperation.Add(op);
+            this.unitermCollection.HorizontalOperations.Add(op);
+            UnitermCanvasChangedEvent?.Invoke();
         }
 
-        public void Refresh()
+        public List<AbstractOperation> GetVerticalOperations()
         {
-            throw new NotImplementedException();
+            return this.unitermCollection.VerticalOperations;
         }
+
+        public List<AbstractOperation> GetHorizontalOperations()
+        {
+            return this.GetVerticalOperations();
+        }
+
+        public void Clear()
+        {
+            this.unitermCollection.VerticalOperations.Clear();
+            this.unitermCollection.HorizontalOperations.Clear();
+            UnitermCanvasChangedEvent?.Invoke();
+        }
+
+        public void loadCollection(UnitermCollection collection)
+        {
+            this.unitermCollection = collection;
+            UnitermCanvasChangedEvent?.Invoke();
+        }
+
+        public UnitermCollection GetUnitermCollection()
+        {
+            return this.unitermCollection;
+        }
+
+        public bool IsEmpty()
+        {
+            return unitermCollection.VerticalOperations.Count == 0
+                && unitermCollection.HorizontalOperations.Count == 0;
+        }
+
+        public event UnitermCanvasChanged UnitermCanvasChangedEvent;
     }
         #endregion
 

@@ -72,22 +72,6 @@ namespace Uniterm
             return formattedText;
         }
 
-        #region public
-
-
-        public void DrawVert(Point pt, int length, DrawingContext dc)
-        {
-            dc.DrawLine(pen, pt, new Point { X = pt.X, Y = pt.Y + length });
-            double b = (Math.Sqrt(length) / 2) + 2;
-
-            dc.DrawLine(pen, new Point(pt.X - (b / 2), pt.Y), new Point(pt.X + (b / 2), pt.Y));
-            dc.DrawLine(
-                pen,
-                new Point(pt.X - (b / 2), pt.Y + length),
-                new Point(pt.X + (b / 2), pt.Y + length)
-            );
-        }
-
         public int GetTextHeight(string text)
         {
             return (int)GetFormattedText(text).Height;
@@ -112,36 +96,6 @@ namespace Uniterm
         {
             return (int)GetFormattedText(text).Width;
         }
-
-        #endregion
-
-
-        #region private
-
-        private IEnumerable<Point> GetBezierPoints(Point A, Point B, Point C, Point D)
-        {
-            List<Point> points = new List<Point>();
-
-            for (double t = 0.0d; t <= 1.0; t += 1.0 / 500)
-            {
-                double tbs = Math.Pow(t, 2);
-                double tbc = Math.Pow(t, 3);
-                double tas = Math.Pow((1 - t), 2);
-                double tac = Math.Pow((1 - t), 3);
-
-                points.Add(
-                    new Point
-                    {
-                        Y = +tac * A.Y + 3 * t * tas * B.Y + 3 * tbs * (1 - t) * C.Y + tbc * D.Y,
-                        X = +tac * A.X + 3 * t * tas * B.X + 3 * tbs * (1 - t) * C.X + tbc * D.X,
-                    }
-                );
-            }
-
-            return points;
-        }
-
-        #endregion
 
         public void SetFontFamily(FontFamily fontFamily)
         {
