@@ -21,7 +21,7 @@ namespace Uniterm
                 string localAppDataPath = Environment.GetFolderPath(
                     Environment.SpecialFolder.LocalApplicationData
                 );
-                string myAppDataPath = Path.Combine(localAppDataPath, "MyApp");
+                string myAppDataPath = Path.Combine(localAppDataPath, "Uniterms");
                 string jsonFilePath = Path.Combine(myAppDataPath, "uniterms.json");
                 return jsonFilePath;
             }
@@ -29,20 +29,28 @@ namespace Uniterm
 
         public void LoadUnitermCollection()
         {
-            unitermCollection = new List<UnitermCollectinEntry>();
+            string json = File.ReadAllText(JsonPath);
+            unitermCollection = JsonConverter.ConvertFromJson<List<UnitermCollectinEntry>>(json);
+            OnDbChangeEvent?.Invoke();
         }
 
         public List<UnitermCollectinEntry> GetUnitermCollectionEntries()
         {
-            string json = File.ReadAllText(JsonPath);
+            return this.unitermCollection;
         }
 
         public void SaveNewUnitermCollectionEntry(UnitermCollectinEntry entry)
         {
-            throw new NotImplementedException();
+            this.unitermCollection.Add(entry);
+            string json = JsonConverter.ConvertToJson(this.unitermCollection);
+            File.WriteAllText(JsonPath, json);
+            OnDbChangeEvent?.Invoke();
         }
 
-        public UnitermCollectinEntry GetUnitermOfName(string title) { }
+        public UnitermCollectinEntry GetUnitermOfName(string title)
+        {
+            return this.unitermCollection.FirstOrDefault(x => x.Name.Equals(title));
+        }
 
         public event OnDbChange OnDbChangeEvent;
     }
