@@ -49,7 +49,7 @@ namespace Uniterm
         internal static void Change(IUnitermCanvas unitermCanvas)
         {
             ChangeWIndow wIndow = new ChangeWIndow(unitermCanvas);
-            wIndow.Show();
+            wIndow.ShowDialog();
         }
 
         private void RadioButton_Vertical_B_Checked(object sender, RoutedEventArgs e) { }
@@ -70,43 +70,57 @@ namespace Uniterm
 
         private void ChangeButton_Click(object sender, RoutedEventArgs e)
         {
-            UnitermCollection unitermCollection = _unitermCanvas.GetUnitermCollection();
-            if (
-                this.ListBox_Horziontal.SelectedItem == null
-                || this.ListBox_Vertical.SelectedItem == null
-            )
+            try
             {
-                MessageBox.Show("Please select a value");
-                return;
-            }
-            int indexHorziontal = this.ListBox_Horziontal.SelectedIndex;
-            int indexVertical = this.ListBox_Vertical.SelectedIndex;
-            AbstractOperation ParamA = unitermCollection.VerticalOperations.ElementAt(
-                indexVertical
-            );
-            AbstractOperation ParamB = unitermCollection.HorizontalOperations.ElementAt(
-                indexHorziontal
-            );
-            if (ParamA != null && ParamB != null)
-            {
-                if (this.RadioButton_Vertical_A.IsChecked == true)
-                {
-                    ParamA.ExpressionA = ParamB;
-                }
-                else if (this.RadioButton_Vertical_B.IsChecked == true)
-                {
-                    ParamA.ExpressionB = ParamB;
-                }
-                else
+                UnitermCollection unitermCollection = _unitermCanvas.GetUnitermCollection();
+                if (
+                    this.ListBox_Horziontal.SelectedItem == null
+                    || this.ListBox_Vertical.SelectedItem == null
+                )
                 {
                     MessageBox.Show("Please select a value");
                     return;
                 }
-                unitermCollection.HorizontalOperations.RemoveAt(indexHorziontal);
-                this._unitermCanvas.loadCollection(unitermCollection);
-            }
 
-            this.Close();
+                int indexHorziontal = this.ListBox_Horziontal.SelectedIndex;
+                int indexVertical = this.ListBox_Vertical.SelectedIndex;
+                AbstractOperation ParamA = unitermCollection.VerticalOperations.ElementAt(
+                    indexVertical
+                );
+                AbstractOperation ParamB = unitermCollection.HorizontalOperations.ElementAt(
+                    indexHorziontal
+                );
+                if (ParamA != null && ParamB != null)
+                {
+                    if (this.RadioButton_Vertical_A.IsChecked == true)
+                    {
+                        ParamA.ExpressionA = ParamB;
+                    }
+                    else if (this.RadioButton_Vertical_B.IsChecked == true)
+                    {
+                        ParamA.ExpressionB = ParamB;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a value");
+                        return;
+                    }
+
+                    unitermCollection.HorizontalOperations.RemoveAt(indexHorziontal);
+                    this._unitermCanvas.loadCollection(unitermCollection);
+                }
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Wystąpł błąd: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
     }
 }

@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Costura.Fody" Version="6.0.0" />
+    <PackageVersion Include="Fody" Version="6.8.2" />
+    <PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.18362.2007" />
+    <PackageVersion Include="ModernWpfUI" Version="0.9.6" />
+    <PackageVersion Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageVersion Include="MSTest.TestFramework" Version="2.2.10" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
+    <PackageVersion Include="System.Runtime.WindowsRuntime" Version="4.6.0" />
+    <PackageVersion Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.6.0" />
+    <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

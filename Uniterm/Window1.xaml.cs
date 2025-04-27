@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Serialization;
+using ModernWpf;
 using Uniterm.Interfaces;
 using Uniterm.Mocks;
 using Uniterm.Models;
@@ -60,6 +61,10 @@ namespace Uniterm
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (ThemeManager.Current.ApplicationTheme == null)
+            {
+                ThemeManager.Current.ApplicationTheme = ThemeManager.Current.ActualApplicationTheme;
+            }
             foreach (FontFamily f in System.Windows.Media.Fonts.SystemFontFamilies)
             {
                 cbFonts.Items.Add(f);

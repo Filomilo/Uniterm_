@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using ModernWpf;
 using Uniterm.Interfaces;
 using Uniterm.Shapes;
 using FlowDirection = System.Windows.FlowDirection;
@@ -30,7 +31,15 @@ namespace Uniterm
 
         public Pen pen
         {
-            get { return new Pen(Brushes.SteelBlue, (int)Math.Log(this.fontsize, 3)); }
+            get
+            {
+                return new Pen(
+                    ThemeManager.Current.ActualAccentColor == null
+                        ? Brushes.SteelBlue
+                        : new SolidColorBrush(ThemeManager.Current.ActualAccentColor),
+                    (int)Math.Log(this.fontsize, 3)
+                );
+            }
         }
 
         #endregion
@@ -64,7 +73,9 @@ namespace Uniterm
                 FlowDirection.LeftToRight,
                 typeface,
                 fontsize,
-                Brushes.Black
+                ThemeManager.Current.ApplicationTheme == ApplicationTheme.Dark
+                    ? Brushes.White
+                    : Brushes.Black
             );
 
             formattedText.TextAlignment = TextAlignment.Left;

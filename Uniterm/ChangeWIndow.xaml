@@ -5,7 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uniterm"
         mc:Ignorable="d"
-        Title="Zamiana" Height="455" Width="675">
+        Title="Zamiana" Height="455" Width="675"
+           xmlns:ui="http://schemas.modernwpf.com/2019"
+   ui:WindowHelper.UseModernWindowStyle="True"
+   Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"
+   Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
+   ui:ThemeManager.IsThemeAware="True"
+   >
+  
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
