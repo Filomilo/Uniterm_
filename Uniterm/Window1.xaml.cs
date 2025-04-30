@@ -36,15 +36,23 @@ namespace Uniterm
 
         public Window1()
         {
-            InitializeComponent();
-            _drawingCanvas = cDrawing;
-            UnitermCanvas uniterm = new UnitermCanvas();
-            _unitermCanvas = uniterm;
-            _drawingCanvas.AddDrawable(uniterm);
-            _db = new JsonUnitermDataBase();
-            _db.OnDbChangeEvent += RefreshDbList;
-            _db.LoadUnitermCollection();
-            _unitermCanvas.UnitermCanvasChangedEvent += _drawingCanvas.Refresh;
+            try
+            {
+                InitializeComponent();
+                _drawingCanvas = cDrawing;
+                UnitermCanvas uniterm = new UnitermCanvas();
+                _unitermCanvas = uniterm;
+                _drawingCanvas.AddDrawable(uniterm);
+                _db = new JsonUnitermDataBase();
+                _db.OnDbChangeEvent += RefreshDbList;
+                _db.LoadUnitermCollection();
+                _unitermCanvas.UnitermCanvasChangedEvent += _drawingCanvas.Refresh;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
         }
 
         private void RefreshDbList()

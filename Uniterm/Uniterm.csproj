@@ -34,7 +34,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -213,7 +214,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram3.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -254,8 +254,6 @@
     </PropertyGroup>
   </Target>
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" />
-    <PackageReference Include="Fody" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" />
     <PackageReference Include="ModernWpfUI" />
     <PackageReference Include="Newtonsoft.Json" />
