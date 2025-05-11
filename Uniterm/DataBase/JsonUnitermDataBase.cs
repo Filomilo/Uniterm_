@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Uniterm.Interfaces;
 using Uniterm.Models;
 
@@ -16,6 +13,11 @@ namespace Uniterm
 
         public JsonUnitermDataBase()
         {
+            string dirPath = Path.GetDirectoryName(JsonPath);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
             if (!File.Exists(JsonPath))
             {
                 File.Create(JsonPath).Close();

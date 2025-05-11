@@ -28,7 +28,7 @@
 
         <Menu x:Name="menu1" Background="{x:Null}" Grid.Column="0
 " Grid.ColumnSpan="2">
-            <MenuItem Header="Plik." Margin="15, 0, 0, 0">
+            <MenuItem Header="Plik" Margin="15, 0, 0, 0">
                 <MenuItem Header="Nowy" Click="ehNowyClick"/>
                 <MenuItem Header="Zapisz" Click="MenuItem_Click_1"/>
             </MenuItem>
@@ -42,7 +42,7 @@
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="lbUniterms" BorderThickness="3" SelectionChanged="ehlbUNitermsSelectionChanged" Width="200" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+            <ListBox x:Name="lbUniterms" BorderThickness="1" SelectionChanged="ehlbUNitermsSelectionChanged" Width="200" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>

@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Uniterm.Interfaces;
-using Uniterm.Shapes;
 
 namespace Uniterm.Models
 {
@@ -180,7 +172,7 @@ namespace Uniterm.Models
             position = new Point(position.X + GapSize * 1.5, position.Y + GapSize * 1.5);
             Point CurveStartPostion = new Point(position.X + TotalSize.Width, position.Y);
             Point CurveEndPostion = position;
-            Size CurveSize = GetOperatorSize(CurveStartPostion, CurveEndPostion); //Beizer.GetBeizerSize(CurveStartPostion, CurveEndPostion);
+            Size CurveSize = GetOperatorSize(CurveStartPostion, CurveEndPostion);
             OperatorSize = CurveSize;
             TotalSize = new Size(CurveSize.Width, TotalSize.Height + CurveSize.Height);
         }
@@ -248,7 +240,6 @@ namespace Uniterm.Models
                 position.Y + CurveSize.Height
             );
             DrawOpeartor(drawingCanvas, dc, CurveStartPostion, CurveEndPostion);
-            //drawingCanvas.DrawBezier(CurveStartPostion, CurveEndPostion, dc);
             position = new Point(position.X + CurveSize.Width, position.Y + GapSize);
 
             this.DrawExpression(this.ExpressionA, drawingCanvas, dc, position);

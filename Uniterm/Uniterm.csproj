@@ -123,13 +123,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AddElem.xaml">
+    <Page Include="WIndows\AddElem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ChangeWIndow.xaml">
+    <Page Include="WIndows\ChangeWIndow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,7 +137,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
+    <Page Include="WIndows\Window1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,20 +147,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ChangeWIndow.xaml.cs">
+    <Compile Include="WIndows\ChangeWIndow.xaml.cs">
       <DependentUpon>ChangeWIndow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DrawingCanvas.cs" />
+    <Compile Include="Canvas\DrawingCanvas.cs" />
     <Compile Include="Exceptions\InvalidStringLengthException.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IDrawingCanvas.cs" />
     <Compile Include="Interfaces\IUnitermCanvas.cs" />
     <Compile Include="Interfaces\IUnitermDataBase.cs" />
-    <Compile Include="JsonConverter.cs" />
-    <Compile Include="JsonUnitermDataBase.cs" />
-    <Compile Include="MathOperation.cs" />
+    <Compile Include="DataBase\JsonConverters\JsonConverter.cs" />
+    <Compile Include="DataBase\JsonUnitermDataBase.cs" />
+    <Compile Include="Tools\MathOperation.cs" />
     <Compile Include="Mocks\UnitermDataBaseMock.cs" />
-    <Compile Include="Models\IOperation.cs" />
+    <Compile Include="Models\AbstractOperation.cs" />
     <Compile Include="Models\OperationFactory.cs" />
     <Compile Include="Models\ParrelOpetion.cs" />
     <Compile Include="Models\SequancingOpration.cs" />
@@ -169,22 +169,20 @@
     <Compile Include="Properties\SaveWIndow.xaml.cs">
       <DependentUpon>SaveWIndow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shapes\Beizer.cs" />
-    <Compile Include="Shapes\RectangularBrackets.cs" />
-    <Compile Include="UnitermCollectinEntryJsonConverter.cs" />
-    <Compile Include="UnitermJsonConverter.cs" />
-    <Compile Include="Window1.xaml.cs">
+    <Compile Include="Canvas\Shapes\Beizer.cs" />
+    <Compile Include="Canvas\Shapes\RectangularBrackets.cs" />
+    <Compile Include="DataBase\JsonConverters\UnitermCollectinEntryJsonConverter.cs" />
+    <Compile Include="DataBase\JsonConverters\UnitermJsonConverter.cs" />
+    <Compile Include="WIndows\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddElem.xaml.cs">
+    <Compile Include="WIndows\AddElem.xaml.cs">
       <DependentUpon>AddElem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataBase.cs" />
-    <Compile Include="MyCanvas.cs" />
-    <Compile Include="UnitermCanvas.cs" />
+    <Compile Include="Canvas\UnitermCanvas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -203,17 +201,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Window1_ehCBFontsChanged.sequencediagram.layout">
-      <DependentUpon>Window1_ehCBFontsChanged.sequencediagram</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Window1_ehCBFontsChanged_1.sequencediagram.layout">
-      <DependentUpon>Window1_ehCBFontsChanged_1.sequencediagram</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Window1_ehlbUNitermsSelectionChanged.sequencediagram.layout">
-      <DependentUpon>Window1_ehlbUNitermsSelectionChanged.sequencediagram</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -221,9 +209,6 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Uniterm_TemporaryKey.pfx" />
-    <None Include="Window1_ehCBFontsChanged.sequencediagram" />
-    <None Include="Window1_ehCBFontsChanged_1.sequencediagram" />
-    <None Include="Window1_ehlbUNitermsSelectionChanged.sequencediagram" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

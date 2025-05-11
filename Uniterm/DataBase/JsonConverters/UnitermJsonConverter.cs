@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Uniterm.Models;
@@ -28,9 +24,7 @@ namespace Uniterm
                 writer.WriteValue(operation.ExpressionA);
             else if (operation.ExpressionA is AbstractOperation)
             {
-                //writer.WriteStartObject();
                 this.WriteJson(writer, operation.ExpressionA, serializer);
-                //writer.WriteEndObject();
             }
 
             writer.WritePropertyName("ExpressionB");
@@ -38,9 +32,7 @@ namespace Uniterm
                 writer.WriteValue(operation.ExpressionB);
             else if (operation.ExpressionB is AbstractOperation)
             {
-                //writer.WriteStart();
                 this.WriteJson(writer, operation.ExpressionB, serializer);
-                //writer.WriteEndObject();
             }
             OperationType type = OperationFactory.GetOperationType(operation);
 

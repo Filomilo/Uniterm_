@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Uniterm.Models;
@@ -32,7 +29,6 @@ namespace Uniterm
                 {
                     unitermJsonConverter.WriteJson(writer, item, serializer);
                 }
-                //JsonSerializer.Serialize(writer, item);
             }
 
             writer.WriteEndArray();
@@ -49,7 +45,6 @@ namespace Uniterm
                 {
                     unitermJsonConverter.WriteJson(writer, item, serializer);
                 }
-                //JsonSerializer.Serialize(writer, item);
             }
 
             writer.WriteEndArray();
