@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
-using Uniterm.Interfaces;
+using Uniterm.Canvas;
+using Uniterm.Exceptions;
 
 namespace Uniterm.Models
 {

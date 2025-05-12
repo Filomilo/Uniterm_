@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Uniterm
+namespace Uniterm.Tools
 {
     public class MathOperation
     {

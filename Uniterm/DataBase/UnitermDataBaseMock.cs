@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Uniterm.Interfaces;
 using Uniterm.Models;
 
-namespace Uniterm.Mocks
+namespace Uniterm.Database
 {
     public class UnitermDataBaseMock : IUnitermDataBase
     {

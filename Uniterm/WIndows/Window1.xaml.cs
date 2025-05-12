@@ -3,11 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ModernWpf;
-using Uniterm.Interfaces;
+using Uniterm.Canvas;
+using Uniterm.Database;
 using Uniterm.Models;
 using Uniterm.Properties;
 
-namespace Uniterm
+namespace Uniterm.Windows
 {
     /// <summary>
     /// Interaction logic for Window1.xaml

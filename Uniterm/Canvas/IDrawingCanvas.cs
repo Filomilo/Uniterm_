@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace Uniterm.Interfaces
+namespace Uniterm.Canvas
 {
     public interface IDrawingCanvas
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Canvas
 {
     public delegate void UnitermCanvasChanged();
 

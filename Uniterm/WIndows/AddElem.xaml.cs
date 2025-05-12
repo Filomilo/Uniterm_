@@ -2,7 +2,7 @@
 using System.Windows;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Windows
 {
     /// <summary>
     /// Interaction logic for AddElem.xaml

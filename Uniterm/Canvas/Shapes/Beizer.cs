@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace Uniterm.Shapes
+namespace Uniterm.Canvas.Shapes
 {
     public class Beizer
     {

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Database
 {
     internal class UnitermJsonConverter : Newtonsoft.Json.JsonConverter
     {

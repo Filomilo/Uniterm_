@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Uniterm.Interfaces;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Database
 {
     public class JsonUnitermDataBase : IUnitermDataBase
     {

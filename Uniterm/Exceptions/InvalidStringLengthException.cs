@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uniterm
+namespace Uniterm.Exceptions
 {
     public class InvalidStringLengthException : Exception
     {

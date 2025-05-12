@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using Uniterm.Interfaces;
-using Uniterm.Shapes;
+using Uniterm.Canvas;
+using Uniterm.Canvas.Shapes;
 
 namespace Uniterm.Models
 {

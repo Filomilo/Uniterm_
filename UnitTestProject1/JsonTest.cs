@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Uniterm;
+using Uniterm.Database;
 using Uniterm.Models;
 
 namespace UnitTestProject1

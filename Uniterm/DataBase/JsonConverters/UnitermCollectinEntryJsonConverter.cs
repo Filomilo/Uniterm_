@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Database
 {
     public class UnitermCollectinEntryJsonConverter : Newtonsoft.Json.JsonConverter
     {

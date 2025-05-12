@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Uniterm
+namespace Uniterm.Database
 {
     public class JsonConverter
     {

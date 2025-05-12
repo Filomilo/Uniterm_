@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using Uniterm.Interfaces;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Canvas
 {
     public class UnitermCanvas : IUnitermCanvas, IDrawable
     {

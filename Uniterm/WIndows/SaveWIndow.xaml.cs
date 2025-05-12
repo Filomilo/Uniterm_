@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using Uniterm.Interfaces;
+using Uniterm.Database;
 using Uniterm.Models;
 
-namespace Uniterm.Properties
+namespace Uniterm.Windows
 {
     /// <summary>
     /// Interaction logic for SaveWIndow.xaml

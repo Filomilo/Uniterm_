@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Uniterm.Canvas;
 using Uniterm.Models;
 
-namespace Uniterm
+namespace Uniterm.Windows
 {
     /// <summary>
     /// Interaction logic for ChangeWIndow.xaml

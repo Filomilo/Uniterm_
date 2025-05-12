@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Uniterm.Models;
 
-namespace Uniterm.Interfaces
+namespace Uniterm.Database
 {
     public delegate void OnDbChange();
 

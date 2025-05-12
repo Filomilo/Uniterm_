@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using Uniterm.Tools;
 
-namespace Uniterm.Shapes
+namespace Uniterm.Canvas.Shapes
 {
     public class RectangularBrackets
     {

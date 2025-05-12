@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using ModernWpf;
-using Uniterm.Interfaces;
-using Uniterm.Shapes;
+using Uniterm.Canvas.Shapes;
 using FlowDirection = System.Windows.FlowDirection;
 
-namespace Uniterm
+namespace Uniterm.Canvas
 {
-    public class DrawingCanvas : Canvas, IDrawingCanvas
+    public class DrawingCanvas : System.Windows.Controls.Canvas, IDrawingCanvas
     {
         private List<IDrawable> drawables = new List<IDrawable>();
 

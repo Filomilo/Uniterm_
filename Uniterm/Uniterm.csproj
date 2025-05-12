@@ -121,9 +121,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Properties\SaveWIndow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="WIndows\SaveWIndow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WIndows\Window1.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -135,32 +135,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Canvas\IDrawable.cs" />
+    <Compile Include="Canvas\IDrawingCanvas.cs" />
+    <Compile Include="Canvas\IUnitermCanvas.cs" />
+    <Compile Include="DataBase\IUnitermDataBase.cs" />
     <Compile Include="WIndows\ChangeWIndow.xaml.cs">
       <DependentUpon>ChangeWIndow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Canvas\DrawingCanvas.cs" />
     <Compile Include="Exceptions\InvalidStringLengthException.cs" />
-    <Compile Include="Interfaces\IDrawable.cs" />
-    <Compile Include="Interfaces\IDrawingCanvas.cs" />
-    <Compile Include="Interfaces\IUnitermCanvas.cs" />
-    <Compile Include="Interfaces\IUnitermDataBase.cs" />
     <Compile Include="DataBase\JsonConverters\JsonConverter.cs" />
     <Compile Include="DataBase\JsonUnitermDataBase.cs" />
     <Compile Include="Tools\MathOperation.cs" />
-    <Compile Include="Mocks\UnitermDataBaseMock.cs" />
     <Compile Include="Models\AbstractOperation.cs" />
     <Compile Include="Models\OperationFactory.cs" />
     <Compile Include="Models\ParrelOpetion.cs" />
     <Compile Include="Models\SequancingOpration.cs" />
     <Compile Include="Models\UnitermCollectinEntry.cs" />
     <Compile Include="Models\UnitermCollection.cs" />
-    <Compile Include="Properties\SaveWIndow.xaml.cs">
-      <DependentUpon>SaveWIndow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Canvas\Shapes\Beizer.cs" />
     <Compile Include="Canvas\Shapes\RectangularBrackets.cs" />
     <Compile Include="DataBase\JsonConverters\UnitermCollectinEntryJsonConverter.cs" />
     <Compile Include="DataBase\JsonConverters\UnitermJsonConverter.cs" />
+    <Compile Include="WIndows\SaveWIndow.xaml.cs">
+      <DependentUpon>SaveWIndow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WIndows\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
       <SubType>Code</SubType>
